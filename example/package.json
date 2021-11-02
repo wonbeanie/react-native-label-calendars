@@ -1,20 +1,44 @@
 {
-  "name": "example",
+  "name": "react-native-label-calendars",
   "version": "0.0.1",
-  "private": true,
+  "module": "Calendar/Calendars.tsx",
+  "main": "Calendar/Calendars.tsx",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "publish:npm": "babel Calendar -d dist --copy-files"
   },
   "dependencies": {
     "react": "17.0.2",
-    "react-native": "0.66.1",
+    "react-native": "0.66.1"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
     "@babel/core": "7.15.8",
+    "@babel/preset-react": "^7.16.0",
     "@babel/runtime": "7.15.4",
     "@react-native-community/eslint-config": "2.0.0",
     "@types/react": "^17.0.33",
