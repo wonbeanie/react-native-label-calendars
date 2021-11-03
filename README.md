@@ -1,6 +1,6 @@
 # React Native Label Calendars 🗓️
 [![Version](https://img.shields.io/npm/v/react-native-label-calendars)](https://www.npmjs.com/package/react-native-label-calendars)
-[![Version](https://img.shields.io/npm/dw/react-native-label-calendars)](https://www.npmjs.com/package/react-native-label-calendars)
+<!-- [![Version](https://img.shields.io/npm/dw/react-native-label-calendars)](https://www.npmjs.com/package/react-native-label-calendars) -->
 
 This module includes various customizable **React-Native** calendar components.
 
