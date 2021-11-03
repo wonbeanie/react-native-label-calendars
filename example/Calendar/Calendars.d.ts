@@ -1,3 +1,5 @@
+import { TextStyle, ViewStyle } from "react-native";
+
 export type labelType = Array<{
     name : string,
     color : string
@@ -11,7 +13,7 @@ export type nowDateType = Date;
 
 export type onLabelData = Array<{
     date : string,
-    onLabel : Array<string>
+    onLabel ?: Array<string>
 }>
 
 export type optionType = {
@@ -48,13 +50,13 @@ export type defaultOptionType = {
     },
     enableLabels : boolean,
     selectDateColor : string,
-    onSelectDate : (e : any, fullDate : string)=>void,
+    onSelectDate : (fullDate : string)=>void,
     titleFormmat : string,
     weekLangFormmat : Array<string>,
-    prevButton : ()=>boolean,
-    nextButton : ()=>boolean,
+    prevButton : ()=>JSX.Element | false,
+    nextButton : ()=>JSX.Element | false,
     titleViewStyle : ViewStyle,
-    titleStyle : ViewStyle,
+    titleStyle : TextStyle,
     touchableOpacityStyle : ViewStyle,
     toDayTextStyle : TextStyle,
     dateTextStyle : TextStyle,
@@ -64,6 +66,6 @@ export type defaultOptionType = {
     dateBorderViewStyle : ViewStyle,
     dateBackgroundViewStyle : ViewStyle,
     toDayBorderWidth : number,
-    onNextPress : (e : any, nextTitle : string)=>void,
-    onPrevPress : (e : any, prevTitle : string)=>void,
+    onNextPress : (nextTitle : string)=>void,
+    onPrevPress : (prevTitle : string)=>void,
 }

@@ -45,7 +45,7 @@ export default function Calendars({onLabelData , ...props} : propsType){
             initMonth : month.toString()
         });
         if(option.onNextPress){
-            option.onNextPress(e, title);
+            option.onNextPress(title);
         }
     }
 
@@ -61,7 +61,7 @@ export default function Calendars({onLabelData , ...props} : propsType){
             initMonth : month.toString()
         });
         if(option.onPrevPress){
-            option.onPrevPress(e, title);
+            option.onPrevPress(title);
         }
     }
 
@@ -87,8 +87,8 @@ export default function Calendars({onLabelData , ...props} : propsType){
         let titleMonth = dates.initMonth;
         let titleEngMonth = engMonth[Number(titleMonth)-1];
         titleDate = titleDate.replace("{year}",titleYear);
-        titleDate = titleDate.replace("{month}",titleMonth);
-        titleDate = titleDate.replace("{engMonth}",titleEngMonth);
+        titleDate = titleDate.replace("{month}",titleEngMonth);
+        titleDate = titleDate.replace("{koMonth}",titleMonth);
         return titleDate;
     }
 
@@ -165,13 +165,13 @@ let defaultOption : defaultOptionType = {
         next : false,
         prev : false
     },
-    enableLabels : false,
+    enableLabels : true,
     selectDateColor : "#0077CC",
-    onSelectDate : (e : any, fullDate : string)=>{console.log(`Select Date ${fullDate}`);},
-    titleFormmat : "{engMonth} {year}",
+    onSelectDate : (fullDate : string)=>{console.log(`Select Date ${fullDate}`);},
+    titleFormmat : "{month} {year}",
     weekLangFormmat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"],
-    prevButton : ()=>{return false;},
-    nextButton : ()=>{return false;},
+    prevButton : ()=>false,
+    nextButton : ()=>false,
     titleViewStyle : {},
     titleStyle : {},
     touchableOpacityStyle : {},
@@ -183,8 +183,8 @@ let defaultOption : defaultOptionType = {
     dateBorderViewStyle : {},
     dateBackgroundViewStyle : {},
     toDayBorderWidth : 3,
-    onNextPress : (e : any, nextTitle : string)=>{console.log(`Next Title ${nextTitle}`);},
-    onPrevPress : (e : any, prevTitle : string)=>{console.log(`Prev Title ${prevTitle}`);},
+    onNextPress : (nextTitle : string)=>{console.log(`Next Title ${nextTitle}`);},
+    onPrevPress : (prevTitle : string)=>{console.log(`Prev Title ${prevTitle}`);},
 }
 
 type initDateType = {
