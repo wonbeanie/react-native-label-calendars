@@ -32,7 +32,7 @@ All parameters for components are optional. By default the month of current loca
 ### Calendars
 
 <kbd>
-  <img src="">
+  <img src="https://github.com/wonbeanie/react-native-label-calendars/blob/develop/TestImage.png?raw=true">
 </kbd>
 
 #### Default parameters
