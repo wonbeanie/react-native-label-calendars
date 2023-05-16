@@ -16,7 +16,7 @@ export default function Calendar({sizeType, labels, option, onLabelData, ...prop
     //didmount
     useLayoutEffect(()=>{
         getDates(props.dataDate);
-    },[dataDate]);
+    },[props.dataDate]);
 
     const getDates = (dataDate : dataDateType)=>{
         if(!dataDate){
