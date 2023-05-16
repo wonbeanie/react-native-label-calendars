@@ -10,12 +10,14 @@
     "test": "jest",
     "lint": "eslint .",
     "publish:npm": "babel Calendar -d dist --copy-files",
-    "clean" : "cd android && ./gradlew clean && cd .."
+    "clean": "cd android && ./gradlew clean && cd .."
   },
   "dependencies": {
+    "@babel/preset-react": "^7.18.6",
     "@react-native-community/cli-platform-android": "^11.2.3",
     "react": "18.2.0",
-    "react-native": "0.71.8"
+    "react-native": "0.71.8",
+    "react-native-gradle-plugin": "^0.71.18"
   },
   "babel": {
     "presets": [
