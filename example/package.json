@@ -9,11 +9,13 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "publish:npm": "babel Calendar -d dist --copy-files"
+    "publish:npm": "babel Calendar -d dist --copy-files",
+    "clean" : "cd android && ./gradlew clean && cd .."
   },
   "dependencies": {
-    "react": "17.0.2",
-    "react-native": "0.66.1"
+    "@react-native-community/cli-platform-android": "^11.2.3",
+    "react": "18.2.0",
+    "react-native": "0.71.8"
   },
   "babel": {
     "presets": [
@@ -36,19 +38,21 @@
     ]
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "7.15.8",
-    "@babel/preset-react": "^7.16.0",
-    "@babel/runtime": "7.15.4",
-    "@react-native-community/eslint-config": "2.0.0",
-    "@types/react": "^17.0.33",
-    "@types/react-native": "^0.66.1",
-    "babel-jest": "26.6.3",
-    "eslint": "7.14.0",
-    "jest": "26.6.3",
-    "metro-react-native-babel-preset": "0.66.2",
-    "react-test-renderer": "17.0.2",
-    "typescript": "^4.4.4"
+    "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
+    "@babel/runtime": "^7.20.0",
+    "@react-native-community/eslint-config": "^3.2.0",
+    "@tsconfig/react-native": "^2.0.2",
+    "@types/jest": "^29.2.1",
+    "@types/react": "^18.0.24",
+    "@types/react-test-renderer": "^18.0.0",
+    "babel-jest": "^29.2.1",
+    "eslint": "^8.19.0",
+    "jest": "^29.2.1",
+    "metro-react-native-babel-preset": "0.73.9",
+    "prettier": "^2.4.1",
+    "react-test-renderer": "18.2.0",
+    "typescript": "4.8.4"
   },
   "jest": {
     "preset": "react-native"
