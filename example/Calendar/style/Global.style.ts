@@ -15,5 +15,8 @@ export default StyleSheet.create({
     center: {
         alignItems:"center",
         justifyContent:'center'
-    }
+    },
+    dateFontSize : {
+        fontSize : 13
+    },
 });

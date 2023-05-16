@@ -15,7 +15,7 @@
    useColorScheme,
    View,
  } from 'react-native';
-import { Calendar } from 'react-native-calendars';
+// import { Calendar } from 'react-native-calendars';
  
  import {
    Colors,
@@ -82,7 +82,7 @@ import { Calendar } from 'react-native-calendars';
      {
          name : 'View',
          color : "#000"
-     },
+     }
    ];
  
    return (

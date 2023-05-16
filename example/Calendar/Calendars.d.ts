@@ -1,4 +1,5 @@
 import { TextStyle, ViewStyle } from "react-native";
+import { theWeekLangFormatType } from "./type/compoent/day";
 
 export type labelType = Array<{
     name : string,
@@ -7,13 +8,13 @@ export type labelType = Array<{
 
 export type dataDateType = Date;
 
-export type sizeTypeType = string;
+export type sizeType = "Small" | "Big";
 
 export type nowDateType = Date;
 
 export type onLabelData = Array<{
     date : string,
-    onLabel ?: Array<string>
+    onLabel : Array<string>
 }>
 
 export type optionType = {
@@ -52,7 +53,7 @@ export type defaultOptionType = {
     selectDateColor : string,
     onSelectDate : (fullDate : string)=>void,
     titleFormmat : string,
-    weekLangFormmat : Array<string>,
+    weekLangFormat : theWeekLangFormatType,
     prevButton : ()=>JSX.Element | false,
     nextButton : ()=>JSX.Element | false,
     titleViewStyle : ViewStyle,

@@ -3,8 +3,6 @@ import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 import g from '../style/Global.style';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { labelType, sizeType, dataDateType, nowDateType, onLabelData, defaultOptionType } from '../Calendars.d';
-import { RowDay } from './component/screen/day';
-import { CalendarsDate } from './component/screen/date';
 
 export default function Calendar({size, labels, option, onLabelData, ...props} : propsType){
     const [dateData, setDateData] = useState<dateDataType>([]);
@@ -268,22 +266,14 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
 
     return (
         <View style={[g.column]}>
-            <RowDay theWeekList={dayData} />
-
-            <CalendarsDate dateList={dateData} labelList={onLabelData} options={{
-                touchableOpacityStyle : option.touchableOpacityStyle,
-                toDayBorderWidth : option.toDayBorderWidth,
-                dateBorderViewStyle : option.dateBorderViewStyle,
-                dateBackgroundViewStyle : option.dateBackgroundViewStyle,
-                enableLabels : option.enableLabels,
-                toDayBackgroundViewStyle : option.toDayBackgroundViewStyle,
-                toDayBorderViewStyle : option.toDayBorderViewStyle,
-                dateTextStyle : option.dateTextStyle,
-                toDayTextStyle : option.toDayTextStyle,
-                selectDateColor : option.selectDateColor,
-                size,
-            }}/>            
-            {/* <View style={[g.column,{flex:8,borderWidth:2,borderColor:'#CCCCCC'}]}>
+            <View style={[g.row,{flex:2}]}>
+                {
+                    dayData.map((data,num)=>{
+                        return dayElement(data,num);
+                    })
+                }
+            </View>
+            <View style={[g.column,{flex:8,borderWidth:2,borderColor:'#CCCCCC'}]}>
                 {
                     dateData.map((data,num)=>{
                         let lastWeek = false;
@@ -294,7 +284,7 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
                         return weekElement(data, num, lastWeek);
                     })
                 }
-            </View> */}
+            </View>
         </View>
     );
 }

@@ -3,12 +3,12 @@ import {Image, ScrollView, TouchableOpacity, Dimensions, Text, View, ViewStyle, 
 import g from './style/Global.style';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import Calendar from './calendars/Calendar';
-import {defaultOptionType, labelType, nowDateType, onLabelData, optionType, sizeTypeType} from './Calendars.d';
+import {defaultOptionType, labelType, nowDateType, onLabelData, optionType, sizeType} from './Calendars.d';
 
 export default function Calendars({onLabelData , ...props} : propsType){
     const [nowDate, setNowDate] = useState<nowDateType>(new Date());
     const [dataDate, setDataDate] = useState<nowDateType>(new Date());
-    const [sizeType, setSizeType] = useState<sizeTypeType>("Big");
+    const [sizeType, setSizeType] = useState<sizeType>("Big");
     const [year, setYaer] = useState<string>('2021');
     const [month, setMonth] = useState<string>('1');
     const engMonth = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -131,7 +131,7 @@ export default function Calendars({onLabelData , ...props} : propsType){
 
                 </View>
                 <View style={[g.row]}>
-                    <Calendar nowDate={nowDate} dataDate={dataDate} onLabelData={onLabelData} labels={labels} option={option} sizeType={sizeType}/>
+                    <Calendar nowDate={nowDate} dataDate={dataDate} onLabelData={onLabelData} labels={labels} option={option} size={sizeType}/>
                 </View>
                 <View style={[g.row,{flexWrap:'wrap'}]}>
                     {
@@ -169,7 +169,7 @@ let defaultOption : defaultOptionType = {
     selectDateColor : "#0077CC",
     onSelectDate : (fullDate : string)=>{console.log(`Select Date ${fullDate}`);},
     titleFormmat : "{month} {year}",
-    weekLangFormmat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"],
+    weekLangFormat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"],
     prevButton : ()=>false,
     nextButton : ()=>false,
     titleViewStyle : {},
