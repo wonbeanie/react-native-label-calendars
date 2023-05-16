@@ -30,26 +30,34 @@ import { Calendar } from 'react-native-calendars';
    const backgroundStyle = {
      backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
    };
+
+   const getDate = (day : string) => {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = (date.getMonth() + 1).toString();
+    month = Number(month) < 10 ? "0" + month : month;
+    return year + "-" + month + "-" + day;
+ }
  
    let onTypeData = [
      {
-       date : "2021-03-26",
+       date : getDate("12"),
        onLabel : ["Gameming"]
      },
      {
-       date : "2021-03-31",
+       date : getDate("13"),
        onLabel : ["Gameming"]
      },
      {
-       date : "2021-03-25",
+       date : getDate("15"),
        onLabel : ["Jumping","View"]
      },
      {
-       date : "2021-03-22",
+       date : getDate("18"),
        onLabel : ["Eatting","Running","Gameming","Jumping","View"]
      },
      {
-       date : "2021-04-01",
+       date : getDate("23"),
        onLabel : ["Eatting","Running"]
      }
    ];
@@ -79,32 +87,11 @@ import { Calendar } from 'react-native-calendars';
  
    return (
     <SafeAreaView style={{flex:1}}>
-      <ScrollView>
-
-        <View style={{flex:1,flexDirection:"row"}}>
-            <View style={{flex:3,backgroundColor:"blue"}} />
-            <View style={{flex:4}}>
-              <Calendars labels={labels} onLabelData={onTypeData}/>
-            </View>
-            <View style={{flex:3,backgroundColor:"yellow"}} />
+      <ScrollView style={{backgroundColor:"white"}}>
+        
+        <View style={{padding: 10}}>
+          <Calendars labels={labels} onLabelData={onTypeData}/>
         </View>
-
-        <View style={{flex:1,flexDirection:"row"}}>
-            <View style={{flex:2,backgroundColor:"blue"}} />
-            <View style={{flex:6}}>
-              <Calendars labels={labels} onLabelData={onTypeData}/>
-            </View>
-            <View style={{flex:2,backgroundColor:"yellow"}} />
-        </View>
-
-        <View style={{flex:1,flexDirection:"row"}}>
-            <View style={{flex:1,backgroundColor:"blue"}} />
-            <View style={{flex:8}}>
-              <Calendars labels={labels} onLabelData={onTypeData}/>
-            </View>
-            <View style={{flex:1,backgroundColor:"yellow"}} />
-        </View>
-        <Calendars labels={labels} onLabelData={onTypeData}/>
 
       </ScrollView>
     </SafeAreaView>
