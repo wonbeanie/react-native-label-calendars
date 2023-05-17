@@ -3,35 +3,43 @@ import { Text, View, StyleSheet, ViewStyle } from 'react-native';
 import Button from './Button';
 import g from '../../../../../style/Global.style';
 import LabelList from './LabelList';
+import { labelType } from '../../../../../Calendars.d';
+import { pressOverDateType } from '../../../../../type/compoent/date';
 
 interface OverDateBtnProps {
 	text : string;
 	enableLabels : boolean;
+	label : string;
+	labelList : labelType;
+	onPress : pressOverDateType;
 	styles : {
 		dateBorder: ViewStyle;
 		defaultBorder : ViewStyle;
 		dateBackground : ViewStyle;
+		btnStyle : ViewStyle;
 	}
 }
 
 const OverDateBtn = (props: OverDateBtnProps) => {
 	const {
-		text, enableLabels, styles
+		text, enableLabels, styles,
+		label, labelList, onPress
 	} = props;
 	
 	const {
-		dateBorder, defaultBorder, dateBackground
+		dateBorder, defaultBorder, dateBackground,
+		btnStyle
 	} = styles;
 	
 
 	return (
-		<Button btnStyle={{}} onPress={()=>{}}>
+		<Button btnStyle={btnStyle} onPress={onPress}>
 			<View style={[g.row,g.center, s.overDate, dateBorder, defaultBorder]}>
 				<View style={[dateBackground, s.dateTextView]}>
 					<Text style={[s.text, g.dateFontSize]}>{text}</Text>
 				</View>
 					{
-						enableLabels && <LabelList onLabel='' labelList={[]}  />
+						enableLabels && <LabelList onLabel={label} labelList={labelList}  />
 					}
 			</View>
 		</Button>

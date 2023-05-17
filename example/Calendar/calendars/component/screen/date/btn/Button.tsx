@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Pressable, ViewStyle } from 'react-native';
 import g from '../../../../../style/Global.style';
 
 interface ButtonProps {
-    onPress : () => void;
+    onPress : any;
     btnStyle : ViewStyle;
     children : React.ReactNode;
 }

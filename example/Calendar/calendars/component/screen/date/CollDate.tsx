@@ -3,20 +3,25 @@ import { Text, View, StyleSheet, Pressable, ViewStyle } from 'react-native';
 import g from '../../../../style/Global.style';
 import { formetDate, setDateBorder } from '../../../utils/utils';
 import { collDateType } from '../../../../type/compoent/day';
-import { sizeType, onLabelData } from '../../../../Calendars.d';
+import { sizeType, onLabelData, labelType } from '../../../../Calendars.d';
 import OverDateBtn from './btn/OverDateBtn';
 import NowDateBtn from './btn/NowDateBtn';
 import DateBtn from './btn/DateBtn';
+import { dateOptionType, pressDateType, pressOverDateType } from '../../../../type/compoent/date';
 
 interface DateProps {
     collDate : collDateType;
     labelList : onLabelData;
     lastWeek : boolean;
     lastDate : boolean;
+    labels : labelType;
+    pressDate : pressDateType;
+    pressOverDate : pressOverDateType;
     options : dateOptionType;
+    selectDate : string;
 }
 
-const CollDate = ({collDate, options, lastWeek, lastDate, labelList}: DateProps) => {
+const CollDate = ({collDate, options, lastWeek, lastDate, labelList, pressDate, pressOverDate, selectDate, labels}: DateProps) => {
     let {date, otherDate} = collDate;
     let {touchableOpacityStyle,
         toDayBorderWidth,
@@ -28,15 +33,14 @@ const CollDate = ({collDate, options, lastWeek, lastDate, labelList}: DateProps)
         dateTextStyle,
         toDayTextStyle,
         selectDateColor,
-        size,
+        size
     } = options;
 
     let border = {};
-    let nowFormmetDate = formetDate(new Date());
+    let nowFormetDateText = formetDate(new Date());
     let onLabel = ",";
     let initDate = date.getDate().toString();
-    let fommetDate = formetDate(date);
-    let btnStyle = [g.row,g.center,touchableOpacityStyle];
+    let fometDateText = formetDate(date);
     let nowDateBorder = setDateBorder(size, toDayBorderWidth, "now");
     let dateBorder = setDateBorder();
 
@@ -56,7 +60,7 @@ const CollDate = ({collDate, options, lastWeek, lastDate, labelList}: DateProps)
 
     
     labelList.some((data,num)=>{
-        if(data.date === fommetDate){
+        if(data.date === fometDateText){
             data.onLabel.forEach((label)=>{
                 onLabel += label+",";
             })
@@ -64,32 +68,41 @@ const CollDate = ({collDate, options, lastWeek, lastDate, labelList}: DateProps)
     });
 
     if(otherDate){
-        return <OverDateBtn text={initDate} enableLabels={enableLabels} styles={{
+        return <OverDateBtn text={initDate} enableLabels={enableLabels} label={onLabel} labelList={labels} styles={{
             dateBorder: dateBorderViewStyle,
             defaultBorder : dateBorder.borderViewStyle,
             dateBackground : dateBackgroundViewStyle,
+            btnStyle : touchableOpacityStyle
+        }} onPress={()=>{
+            pressOverDate(date);
         }}/>
     }
 
-    if(nowFormmetDate === fommetDate){
-        return <NowDateBtn text={initDate} enableLabels={enableLabels} styles={{
+    if(nowFormetDateText === fometDateText){
+        return <NowDateBtn text={initDate} enableLabels={enableLabels} label={onLabel} labelList={labels} styles={{
             dateBorder: toDayBorderViewStyle,
             defaultBorder : nowDateBorder.borderViewStyle,
             toDayBackground : toDayBackgroundViewStyle,
             dateText : dateTextStyle,
             toDayText : toDayTextStyle,
-            color : "" === initDate.toString() ? selectDateColor : "#000",
-        }} />
+            btnStyle : touchableOpacityStyle,
+            color : selectDate === initDate.toString() ? selectDateColor : "#000",
+        }} onPress={(e)=>{
+            pressDate(initDate, fometDateText)
+        }}/>
     }
 
     return (
-        <DateBtn text={initDate} enableLabels={enableLabels} styles={{
+        <DateBtn text={initDate} enableLabels={enableLabels} label={onLabel} labelList={labels} styles={{
             dateBorder: dateBorderViewStyle,
             defaultBorder : dateBorder.borderViewStyle,
             dateBackground : dateBackgroundViewStyle,
             dateText : dateTextStyle,
-            color : "" === initDate.toString() ? selectDateColor : "#000"
-        }} />
+            btnStyle : touchableOpacityStyle,
+            color : selectDate === initDate.toString() ? selectDateColor : "#000"
+        }} onPress={()=>{
+            pressDate(initDate, fometDateText)
+        }}/>
     );
 };
 

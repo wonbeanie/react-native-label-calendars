@@ -1,4 +1,4 @@
-import { sizeType } from "../../Calendars";
+import { sizeType } from "../../Calendars.d";
 
 export const formetDate = (data : Date) => {
     let year = data.getFullYear();
@@ -39,4 +39,9 @@ export const setDateBorder = (size : sizeType = "Big", borderWidth ?: number, ty
     };
     
     return borderStyle;
+}
+
+export const formetDay = (day:number) => {
+    let days = [6,0,1,2,3,4,5];
+    return days[day];
 }

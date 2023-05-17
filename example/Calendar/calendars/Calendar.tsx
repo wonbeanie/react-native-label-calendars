@@ -5,6 +5,8 @@ import { useState, useEffect, useLayoutEffect } from 'react';
 import { labelType, sizeType, dataDateType, nowDateType, onLabelData, defaultOptionType } from '../Calendars.d';
 import { RowDay } from './component/screen/day';
 import { CalendarsDate } from './component/screen/date';
+import { pressDateType, pressOverDateType } from '../type/compoent/date';
+import { formetDay } from './utils/utils';
 
 export default function Calendar({size, labels, option, onLabelData, ...props} : propsType){
     const [dateData, setDateData] = useState<dateDataType>([]);
@@ -24,16 +26,21 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
         if(!dataDate){
             dataDate = new Date();
         }
-        let lastDate = new Date(dataDate.getFullYear(), dataDate.getMonth()+1, 0);
 
-        let dates = [];
-        let lastDateNum = lastDate.getDate();
+        const resultDate = formetDateList(dataDate);
 
+        setDateData(resultDate);
+        setYear(dataDate.getFullYear().toString());
+        setMonth(dataDate.getMonth().toString());
+        setDataDate(dataDate);
+        setNowDate(props.nowDate);
+    }
+
+    const curMonthWeekCountCheck = (lastDateNum : number) => {
         let mondays = 0;
         let sundays = 0;
         
         let nowMonthWeekCount = 5;
-
         for(let i=1;i<=lastDateNum;i++){
             let date = new Date(dataDate.getFullYear(),dataDate.getMonth(),i);
             let day = date.getDay();
@@ -49,21 +56,32 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
             nowMonthWeekCount = 6;
         }
 
+        return nowMonthWeekCount;
+    }
+
+    const formetDateList = (dataDate : Date) => {
+        let lastDate = new Date(dataDate.getFullYear(), dataDate.getMonth()+1, 0);
+
+        let lastDateNum = lastDate.getDate();
+
+        const nowMonthWeekCount = curMonthWeekCountCheck(lastDateNum);
+        
         let day = 1;
         let overMonth = false;
         let nextDate = 1;
         let prevDate = new Date(dataDate.getFullYear(),dataDate.getMonth(),0);
         let date = new Date(dataDate.getFullYear(),dataDate.getMonth(),day);
-        let dataDay = setFormmetDay(date.getDay());
+        let dataDay = formetDay(date.getDay());
         let prevDateStartNum = prevDate.getDate()-dataDay+1;
         let nextDateStartNum = prevDate.getDate();
         let otherMonth = dataDate.getMonth()-1;
+        let result = [];
 
         for(let i=0;i<nowMonthWeekCount;i++){
             let weeks = [];
             for(let j=0;j<7;j++){
                 date = new Date(dataDate.getFullYear(),dataDate.getMonth(),day);
-                dataDay = setFormmetDay(date.getDay());
+                dataDay = formetDay(date.getDay());
                 if(dataDay === j && !overMonth){
                     weeks.push({
                         date,
@@ -87,214 +105,40 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
                     overMonth = true;
                 }
             }
-            dates.push(weeks);
+            result.push(weeks);
         }
 
-        setDateData(dates);
-        setYear(dataDate.getFullYear().toString());
-        setMonth(dataDate.getMonth().toString());
-        setDataDate(dataDate);
-        setNowDate(props.nowDate);
+        return result;
     }
 
-    const setFormmetDay = (day:number) => {
-        let days = [6,0,1,2,3,4,5];
-        return days[day];
-    }
-
-    const dayElement = (day : string, num : number) => {
-        return (
-            <View key={num} style={[g.row,g.center]}>
-                <View style={[g.column,g.center,{paddingTop:10,paddingBottom:10}]}>
-                    <Text style={{fontSize : 15}}>{day}</Text>
-                </View>
-            </View>   
-        );
-    }
-
-    const setTypeData = (onLabel : string, num : number) => {
-        return (
-            <View key={num} style={[{position:'absolute',width:'100%',flexDirection:'row',justifyContent:'center'},s.dateLabelView]}>
-                {
-                    labels.map((data,num)=>{
-                        return onLabel.indexOf(data.name) !== -1 && <View style={[{backgroundColor:data.color},s.dateLabel]} />
-                    })
-                }
-            </View>
-        );
-    }
-
-    const setDateBorder = (borderWidth ?: number, type ?: string) => {
-        let paddingMax = 10;
-        let borderWidthDefault = 3;
-        borderWidth = 0;
-
-        if(size === "Small"){
-            paddingMax = 5;
-            borderWidthDefault = 2;
-        }
-
-        if(type){
-            borderWidth = borderWidth ? borderWidth : borderWidthDefault;
-        }
-
-        let borderStyle = {
-            borderViewStyle : {
-                padding: borderWidth
-            },
-            backgroundViewStyle : {
-                padding: paddingMax-borderWidth
-            }
-        };
-        
-        return borderStyle;
-    }
-
-    const dateElement = ({date, otherDate} : dateType, num : number, lastWeek : boolean, lastDate : boolean) => {
-        let border = {};
-        let nowFormmetDate = setDateFommet(new Date(nowDate));
-        let onLabel = ",";
-        let initDate = date.getDate();
-        let fommetDate = setDateFommet(date);
-        let touchableOpacityStyle = [g.row,g.center,option.touchableOpacityStyle];
-        let nowDateBorder = setDateBorder(option.toDayBorderWidth, "now");
-        let dateBorder = setDateBorder();
-
-        border = s.calendarBorder;
-
-        if(lastWeek){
-            border = s.calendarBorderRight;
-        }
-
-        if(lastDate){
-            border = s.calendarBorderBottom;
-        }
-
-        if(lastWeek && lastDate){
-            border = {};
-        }
-
-        
-        onLabelData.some((data,num)=>{
-            if(data.date === fommetDate){
-                data.onLabel.forEach((label)=>{
-                    onLabel += label+",";
-                })
-            }
-        });
-
-        if(otherDate){
-            return (
-                <TouchableOpacity key={num} style={[touchableOpacityStyle, {backgroundColor: "yellow"}]} onPress={(e)=>{onPressOtherDate(date)}}>
-                    <View style={[g.row,g.center,border,{padding:10},option.dateBorderViewStyle, dateBorder.borderViewStyle]}>
-                        <View style={[option.dateBackgroundViewStyle,{paddingVertical:'30%'}]}>
-                            <Text style={[{color:"#c0c0c0"},s.dateFontSize]}>{initDate}</Text>
-                        </View>
-                            {
-                                option.enableLabels && setTypeData(onLabel, num)
-                            }
-                    </View>
-                </TouchableOpacity>
-            );
-        }
-        if(nowFormmetDate === fommetDate){
-            return (
-                <TouchableOpacity key={num} style={[touchableOpacityStyle, {backgroundColor: "blue"}]} onPress={(e)=>{onPressDate(e ,initDate, fommetDate)}}>
-                    <View style={[g.row,g.center,border,{backgroundColor:'#000'},option.toDayBorderViewStyle, nowDateBorder.borderViewStyle]}>
-                        <View style={[g.row,g.center,{backgroundColor:'#ddd'},option.toDayBackgroundViewStyle,{paddingVertical:'30%'}]}>
-                            <Text style={[s.dateFontSize,{color:selectDate === initDate.toString() ? option.selectDateColor : "#000", ...option.dateTextStyle, ...option.toDayTextStyle}]}>{initDate}</Text>
-                        </View>
-                        {
-                            option.enableLabels && setTypeData(onLabel, num)
-                        }
-                    </View>
-                </TouchableOpacity>
-            )
-        }
-
-        return (
-            <TouchableOpacity key={num} style={[touchableOpacityStyle, {backgroundColor: "red"}]} onPress={(e)=>{onPressDate(e, initDate, fommetDate)}}>
-                <View style={[g.row,g.center,border,{padding:10},option.dateBorderViewStyle, dateBorder.borderViewStyle]}>
-                    <View style={[option.dateBackgroundViewStyle,{paddingVertical:'30%'}]}>
-                        <Text style={[s.dateFontSize,{color:selectDate === initDate.toString() ? option.selectDateColor : "#000", ...option.dateTextStyle}]}>{initDate}</Text>
-                    </View>
-                        {
-                            option.enableLabels && setTypeData(onLabel, num)
-                        }
-                </View>
-            </TouchableOpacity>
-        );
-    }
-
-    const onPressDate = (e : any, date : number, fommetDate : string) => {
+    const onPressDate : pressDateType = (date, fometDateText) => {
         setSelectDate(date.toString());
-        option.onSelectDate(e, fommetDate);
+        option.onSelectDate(fometDateText);
     }
 
-    const onPressOtherDate = (date : Date) => {
-        getDates(new Date(date.getFullYear(),date.getMonth()));
-    }
-
-    const setDateFommet = (data : Date) => {
-        let year = data.getFullYear();
-        let month = (data.getMonth()+1).toString();
-        let date = data.getDate().toString();
-        if(month.toString().length < 2){
-            month = "0"+month;
-        }
-
-        if(date.toString().length < 2){
-            date = "0"+date;
-        }
-
-        return `${year}-${month}-${date}`;
-    }
-
-    const weekElement = (week : weekType, num : number, lastWeek : boolean) => {
-        return (
-            <View key={num} style={[g.row,g.center]}>
-                {
-                    week.map((data,num)=>{
-                        let lastDate = false;
-                        if(num === week.length-1){
-                            lastDate = true;
-                        }
-                        return dateElement(data, num, lastWeek, lastDate);
-                    })
-                }
-            </View>            
-        );
+    const onPressOverDate : pressOverDateType = (date) => {
+        // getDates(new Date(date.getFullYear(),date.getMonth()));
     }
 
     return (
         <View style={[g.column]}>
             <RowDay theWeekList={dayData} />
 
-            <CalendarsDate dateList={dateData} labelList={onLabelData} options={{
-                touchableOpacityStyle : option.touchableOpacityStyle,
-                toDayBorderWidth : option.toDayBorderWidth,
-                dateBorderViewStyle : option.dateBorderViewStyle,
-                dateBackgroundViewStyle : option.dateBackgroundViewStyle,
-                enableLabels : option.enableLabels,
-                toDayBackgroundViewStyle : option.toDayBackgroundViewStyle,
-                toDayBorderViewStyle : option.toDayBorderViewStyle,
-                dateTextStyle : option.dateTextStyle,
-                toDayTextStyle : option.toDayTextStyle,
-                selectDateColor : option.selectDateColor,
-                size,
-            }}/>            
-            {/* <View style={[g.column,{flex:8,borderWidth:2,borderColor:'#CCCCCC'}]}>
-                {
-                    dateData.map((data,num)=>{
-                        let lastWeek = false;
-                        if(num === dateData.length-1){
-                            lastWeek = true;
-                        }
-                        
-                        return weekElement(data, num, lastWeek);
-                    })
-                }
-            </View> */}
+            <CalendarsDate dateList={dateData} labelList={onLabelData} labels={labels}
+                pressDate={onPressDate} pressOverDate={onPressOverDate} selectDate={selectDate}
+                options={{
+                    touchableOpacityStyle : option.touchableOpacityStyle,
+                    toDayBorderWidth : option.toDayBorderWidth,
+                    dateBorderViewStyle : option.dateBorderViewStyle,
+                    dateBackgroundViewStyle : option.dateBackgroundViewStyle,
+                    enableLabels : option.enableLabels,
+                    toDayBackgroundViewStyle : option.toDayBackgroundViewStyle,
+                    toDayBorderViewStyle : option.toDayBorderViewStyle,
+                    dateTextStyle : option.dateTextStyle,
+                    toDayTextStyle : option.toDayTextStyle,
+                    selectDateColor : option.selectDateColor,
+                    size,
+            }}/>
         </View>
     );
 }
