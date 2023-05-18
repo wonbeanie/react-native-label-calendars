@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Text, View, StyleSheet, Pressable, ViewStyle } from 'react-native';
 import g from '../../../../style/Global.style';
 import { formetDate, setDateBorder } from '../../../utils/utils';
@@ -8,22 +8,25 @@ import OverDateBtn from './btn/OverDateBtn';
 import NowDateBtn from './btn/NowDateBtn';
 import DateBtn from './btn/DateBtn';
 import { dateOptionType, pressDateType, pressOverDateType } from '../../../../type/compoent/date';
+import { CalendarsDateContext } from '../../../../context/CalendarsDateContext';
+import { useContext } from 'react';
 
 interface DateProps {
     collDate : collDateType;
-    labelList : onLabelData;
     lastWeek : boolean;
     lastDate : boolean;
-    labels : labelType;
-    pressDate : pressDateType;
-    pressOverDate : pressOverDateType;
-    options : dateOptionType;
-    selectDate : string;
 }
 
-const CollDate = ({collDate, options, lastWeek, lastDate, labelList, pressDate, pressOverDate, selectDate, labels}: DateProps) => {
+const CollDate = ({collDate, lastWeek, lastDate}: DateProps) => {
     let {date, otherDate} = collDate;
-    let {touchableOpacityStyle,
+
+    const {
+        options, labelList, labels,
+        pressDate, pressOverDate, selectDate
+    } = useContext(CalendarsDateContext);
+
+    const {
+        touchableOpacityStyle,
         toDayBorderWidth,
         dateBorderViewStyle,
         dateBackgroundViewStyle,

@@ -8,7 +8,7 @@ import {defaultOptionType, labelType, nowDateType, onLabelData, optionType, size
 export default function Calendars({onLabelData , ...props} : propsType){
     const [nowDate, setNowDate] = useState<nowDateType>(new Date());
     const [dataDate, setDataDate] = useState<nowDateType>(new Date());
-    const [sizeType, setSizeType] = useState<sizeType>("Big");
+    const [sizeType, setSizeType] = useState<sizeType>(defaultSize);
     const [year, setYaer] = useState<string>('2021');
     const [month, setMonth] = useState<string>('1');
     const engMonth = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -160,7 +160,7 @@ type propsType = {
     onLabelData : onLabelData
 }
 
-let defaultOption : defaultOptionType = {
+export let defaultOption : defaultOptionType = {
     disableMonthChange : {
         next : false,
         prev : false
@@ -186,6 +186,8 @@ let defaultOption : defaultOptionType = {
     onNextPress : (nextTitle : string)=>{console.log(`Next Title ${nextTitle}`);},
     onPrevPress : (prevTitle : string)=>{console.log(`Prev Title ${prevTitle}`);},
 }
+
+export const defaultSize = "Big";
 
 type initDateType = {
     initYear : string,

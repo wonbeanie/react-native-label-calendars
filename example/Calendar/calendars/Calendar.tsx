@@ -1,26 +1,56 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 import g from '../style/Global.style';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { labelType, sizeType, dataDateType, nowDateType, onLabelData, defaultOptionType } from '../Calendars.d';
 import { RowDay } from './component/screen/day';
 import { CalendarsDate } from './component/screen/date';
-import { pressDateType, pressOverDateType } from '../type/compoent/date';
+import { dateOptionType, pressDateType, pressOverDateType } from '../type/compoent/date';
+import { dateListType } from '../type/compoent/day';
 import { formetDay } from './utils/utils';
+import { CalendarsDateContext, calendarsDateContextType, initCalendarsDateContext } from '../context/CalendarsDateContext';
 
 export default function Calendar({size, labels, option, onLabelData, ...props} : propsType){
-    const [dateData, setDateData] = useState<dateDataType>([]);
+    const [dateData, setDateData] = useState<dateListType>([]);
     const [year, setYear] = useState<string>('2021');
     const [month, setMonth] = useState<string>('1');
     const [dataDate, setDataDate] = useState<Date>(new Date());
     const [nowDate, setNowDate] = useState<Date>(new Date());
     const [selectDate, setSelectDate] = useState<string>('');
+    const [calendarsDateOptions, setCalendarsDateOptions] = useState<calendarsDateContextType>(initCalendarsDateContext);
     let dayData = option.weekLangFormat.length > 7 ? option.weekLangFormat.splice(0,7) : option.weekLangFormat;
 
     //didmount
     useLayoutEffect(()=>{
         getDates(props.dataDate);
     },[props.dataDate]);
+
+    useEffect(()=>{
+        initContext();
+    },[]);
+
+    const initContext = () => {
+        setCalendarsDateOptions({
+            options : {
+                touchableOpacityStyle : option.touchableOpacityStyle,
+                toDayBorderWidth : option.toDayBorderWidth,
+                dateBorderViewStyle : option.dateBorderViewStyle,
+                dateBackgroundViewStyle : option.dateBackgroundViewStyle,
+                enableLabels : option.enableLabels,
+                toDayBackgroundViewStyle : option.toDayBackgroundViewStyle,
+                toDayBorderViewStyle : option.toDayBorderViewStyle,
+                dateTextStyle : option.dateTextStyle,
+                toDayTextStyle : option.toDayTextStyle,
+                selectDateColor : option.selectDateColor,
+                size
+            },
+            labelList : onLabelData,
+            labels : labels,
+            pressDate : onPressDate,
+            pressOverDate : onPressOverDate,
+            selectDate : selectDate
+        });
+    }
 
     const getDates = (dataDate : dataDateType)=>{
         if(!dataDate){
@@ -122,77 +152,15 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
 
     return (
         <View style={[g.column]}>
-            <RowDay theWeekList={dayData} />
+            <RowDay theWeekList={dayData}/>
+            
+            <CalendarsDateContext.Provider value={calendarsDateOptions}>
+                <CalendarsDate dateList={dateData} />
+            </CalendarsDateContext.Provider>
 
-            <CalendarsDate dateList={dateData} labelList={onLabelData} labels={labels}
-                pressDate={onPressDate} pressOverDate={onPressOverDate} selectDate={selectDate}
-                options={{
-                    touchableOpacityStyle : option.touchableOpacityStyle,
-                    toDayBorderWidth : option.toDayBorderWidth,
-                    dateBorderViewStyle : option.dateBorderViewStyle,
-                    dateBackgroundViewStyle : option.dateBackgroundViewStyle,
-                    enableLabels : option.enableLabels,
-                    toDayBackgroundViewStyle : option.toDayBackgroundViewStyle,
-                    toDayBorderViewStyle : option.toDayBorderViewStyle,
-                    dateTextStyle : option.dateTextStyle,
-                    toDayTextStyle : option.toDayTextStyle,
-                    selectDateColor : option.selectDateColor,
-                    size,
-            }}/>
         </View>
     );
 }
-
-const s = StyleSheet.create({
-    calendarBorder : {
-        borderRightWidth:1,
-        borderRightColor:'#EEEEEE',
-        borderBottomWidth:1,
-        borderBottomColor:'#EEEEEE'
-    },
-    dayBorder : {
-        borderRightWidth:2,
-        borderRightColor:'#ffffff',
-    },
-    calendarBorderBottom : {
-        borderBottomWidth:1,
-        borderBottomColor:'#EEEEEE'
-    },
-    calendarBorderRight : {
-        borderRightWidth:1,
-        borderRightColor:'#EEEEEE'
-    },
-    dayFontSize : {
-        fontSize : 13
-    },
-    dayFontSize_s : {
-        fontSize : 11
-    },
-    dateFontSize : {
-        fontSize : 13
-    },
-    dateFontSize_s : {
-        fontSize : 11
-    },
-    dateLabel : {
-        width:5,
-        borderRadius:5,
-        marginRight:2
-    },
-    dateLabel_s : {
-        width:3,
-        borderRadius:3,
-        marginRight:1
-    },
-    dateLabelView : {
-        height:5,
-        bottom:6
-    },
-    dateLabelView_s : {
-        height:3,
-        bottom:2
-    }
-})
 
 
 type propsType = {
@@ -203,12 +171,3 @@ type propsType = {
     nowDate : nowDateType,
     onLabelData : onLabelData,
 }
-
-type dateDataType = Array<weekType>;
-
-type weekType = Array<dateType>;
-
-type dateType = {
-    date: Date;
-    otherDate: boolean;
-};

@@ -1,23 +1,15 @@
-import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import g from '../../../../style/Global.style';
 import { weekListType } from '../../../../type/compoent/day';
 import CollDate from './CollDate';
-import { labelType, onLabelData } from '../../../../Calendars.d';
-import { dateOptionType, pressDateType, pressOverDateType } from '../../../../type/compoent/date';
+import React from 'react';
 
 interface RowWeekProps {
     weekList : weekListType;
     lastWeek : boolean;
-    labels : labelType;
-    pressDate : pressDateType;
-    pressOverDate : pressOverDateType;
-    options : dateOptionType;
-    labelList : onLabelData;
-    selectDate: string;
 }
 
-const RowWeek = ({weekList, lastWeek, labelList, labels, pressDate, pressOverDate, selectDate, options}: RowWeekProps) => {
+const RowWeek = ({weekList, lastWeek}: RowWeekProps) => {
     return (
         <View style={[g.row,g.center]}>
             {
@@ -27,8 +19,7 @@ const RowWeek = ({weekList, lastWeek, labelList, labels, pressDate, pressOverDat
                         lastDate = true;
                     }
                     
-                    return <CollDate collDate={data} labels={labels} lastWeek={lastWeek} lastDate={lastDate} pressDate={pressDate}
-                    selectDate={selectDate} pressOverDate={pressOverDate} labelList={labelList} options={options}/>
+                    return <CollDate collDate={data} lastWeek={lastWeek} lastDate={lastDate} />
                 })
             }
         </View>
