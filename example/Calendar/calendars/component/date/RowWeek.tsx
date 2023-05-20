@@ -1,6 +1,6 @@
 import { View } from 'react-native';
-import g from '../../../../style/Global.style';
-import { weekListType } from '../../../../type/compoent/day';
+import g from '../../../style/Global.style';
+import { weekListType } from '../../../type/compoent/day';
 import CollDate from './CollDate';
 import React from 'react';
 

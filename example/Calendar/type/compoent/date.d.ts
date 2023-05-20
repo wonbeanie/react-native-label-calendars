@@ -1,7 +1,5 @@
-import { labelType } from "../../Calendars";
-
 export interface dateOptionType {
-    touchableOpacityStyle : ViewStyle;
+    onPressStyle : ViewStyle;
     toDayBorderWidth : number;
     dateBorderViewStyle : ViewStyle;
     dateBackgroundViewStyle : ViewStyle;

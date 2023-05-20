@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import g from '../../../../style/Global.style';
-import { dateListType } from '../../../../type/compoent/day';
+import g from '../../../style/Global.style';
+import { dateListType } from '../../../type/compoent/day';
 import RowWeek from './RowWeek';
 
 interface CalendarsDateProps {

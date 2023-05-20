@@ -343,7 +343,7 @@ const s = StyleSheet.create({
 
 type propsType = {
     size : sizeType,
-    labels : labelType,
+    labels : labelType[],
     option : defaultOptionType,
     dataDate : dataDateType,
     nowDate : nowDateType,

@@ -1,10 +1,11 @@
 import React, {createContext} from 'react';
-import { defaultOption, defaultSize } from '../Calendars';
+import { defaultSize } from '../Calendars';
 import { dateOptionType, pressDateType, pressOverDateType } from '../type/compoent/date';
 import { labelType, onLabelData } from '../Calendars.d';
+import { defaultOption } from './OptionContext';
 
 const {
-    touchableOpacityStyle, toDayBorderWidth, dateBorderViewStyle,
+    onPressStyle, toDayBorderWidth, dateBorderViewStyle,
     dateBackgroundViewStyle, enableLabels, toDayBackgroundViewStyle,
     toDayBorderViewStyle, dateTextStyle, toDayTextStyle,
     selectDateColor
@@ -12,7 +13,7 @@ const {
 
 export const initCalendarsDateContext : calendarsDateContextType = {
     options : {
-        touchableOpacityStyle,
+        onPressStyle,
         toDayBorderWidth,
         dateBorderViewStyle,
         dateBackgroundViewStyle,
@@ -35,7 +36,7 @@ export const CalendarsDateContext = createContext(initCalendarsDateContext);
 
 export interface calendarsDateContextType {
     options : dateOptionType;
-    labels : labelType;
+    labels : labelType[];
     labelList : onLabelData;
     pressDate : pressDateType;
     pressOverDate : pressOverDateType;

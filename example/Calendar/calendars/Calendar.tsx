@@ -4,10 +4,10 @@ import g from '../style/Global.style';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { labelType, sizeType, dataDateType, nowDateType, onLabelData, defaultOptionType } from '../Calendars.d';
 import { RowDay } from './component/screen/day';
-import { CalendarsDate } from './component/screen/date';
+import { CalendarsDate } from './component/date';
 import { dateOptionType, pressDateType, pressOverDateType } from '../type/compoent/date';
 import { dateListType } from '../type/compoent/day';
-import { formetDay } from './utils/utils';
+import { formatDay } from './utils/utils';
 import { CalendarsDateContext, calendarsDateContextType, initCalendarsDateContext } from '../context/CalendarsDateContext';
 
 export default function Calendar({size, labels, option, onLabelData, ...props} : propsType){
@@ -57,7 +57,7 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
             dataDate = new Date();
         }
 
-        const resultDate = formetDateList(dataDate);
+        const resultDate = formatDateList(dataDate);
 
         setDateData(resultDate);
         setYear(dataDate.getFullYear().toString());
@@ -89,7 +89,7 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
         return nowMonthWeekCount;
     }
 
-    const formetDateList = (dataDate : Date) => {
+    const formatDateList = (dataDate : Date) => {
         let lastDate = new Date(dataDate.getFullYear(), dataDate.getMonth()+1, 0);
 
         let lastDateNum = lastDate.getDate();
@@ -101,7 +101,7 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
         let nextDate = 1;
         let prevDate = new Date(dataDate.getFullYear(),dataDate.getMonth(),0);
         let date = new Date(dataDate.getFullYear(),dataDate.getMonth(),day);
-        let dataDay = formetDay(date.getDay());
+        let dataDay = formatDay(date.getDay());
         let prevDateStartNum = prevDate.getDate()-dataDay+1;
         let nextDateStartNum = prevDate.getDate();
         let otherMonth = dataDate.getMonth()-1;
@@ -111,7 +111,7 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
             let weeks = [];
             for(let j=0;j<7;j++){
                 date = new Date(dataDate.getFullYear(),dataDate.getMonth(),day);
-                dataDay = formetDay(date.getDay());
+                dataDay = formatDay(date.getDay());
                 if(dataDay === j && !overMonth){
                     weeks.push({
                         date,
@@ -165,7 +165,7 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
 
 type propsType = {
     size : sizeType,
-    labels : labelType,
+    labels : labelType[],
     option : defaultOptionType,
     dataDate : dataDateType,
     nowDate : nowDateType,

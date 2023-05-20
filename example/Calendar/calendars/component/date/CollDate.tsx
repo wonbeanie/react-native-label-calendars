@@ -1,14 +1,12 @@
 import React from 'react';
-import { Text, View, StyleSheet, Pressable, ViewStyle } from 'react-native';
-import g from '../../../../style/Global.style';
-import { formetDate, setDateBorder } from '../../../utils/utils';
-import { collDateType } from '../../../../type/compoent/day';
-import { sizeType, onLabelData, labelType } from '../../../../Calendars.d';
+import { StyleSheet } from 'react-native';
+import { formatDate, setDateBorder } from '../../utils/utils';
+import { collDateType } from '../../../type/compoent/day';
 import OverDateBtn from './btn/OverDateBtn';
 import NowDateBtn from './btn/NowDateBtn';
 import DateBtn from './btn/DateBtn';
-import { dateOptionType, pressDateType, pressOverDateType } from '../../../../type/compoent/date';
-import { CalendarsDateContext } from '../../../../context/CalendarsDateContext';
+import { dateOptionType, pressDateType, pressOverDateType } from '../../../type/compoent/date';
+import { CalendarsDateContext } from '../../../context/CalendarsDateContext';
 import { useContext } from 'react';
 
 interface DateProps {
@@ -26,7 +24,7 @@ const CollDate = ({collDate, lastWeek, lastDate}: DateProps) => {
     } = useContext(CalendarsDateContext);
 
     const {
-        touchableOpacityStyle,
+        onPressStyle,
         toDayBorderWidth,
         dateBorderViewStyle,
         dateBackgroundViewStyle,
@@ -40,10 +38,10 @@ const CollDate = ({collDate, lastWeek, lastDate}: DateProps) => {
     } = options;
 
     let border = {};
-    let nowFormetDateText = formetDate(new Date());
+    let nowFormatDateText = formatDate(new Date());
     let onLabel = ",";
     let initDate = date.getDate().toString();
-    let fometDateText = formetDate(date);
+    let fometDateText = formatDate(date);
     let nowDateBorder = setDateBorder(size, toDayBorderWidth, "now");
     let dateBorder = setDateBorder();
 
@@ -75,20 +73,20 @@ const CollDate = ({collDate, lastWeek, lastDate}: DateProps) => {
             dateBorder: dateBorderViewStyle,
             defaultBorder : dateBorder.borderViewStyle,
             dateBackground : dateBackgroundViewStyle,
-            btnStyle : touchableOpacityStyle
+            btnStyle : onPressStyle
         }} onPress={()=>{
             pressOverDate(date);
         }}/>
     }
 
-    if(nowFormetDateText === fometDateText){
+    if(nowFormatDateText === fometDateText){
         return <NowDateBtn text={initDate} enableLabels={enableLabels} label={onLabel} labelList={labels} styles={{
             dateBorder: toDayBorderViewStyle,
             defaultBorder : nowDateBorder.borderViewStyle,
             toDayBackground : toDayBackgroundViewStyle,
             dateText : dateTextStyle,
             toDayText : toDayTextStyle,
-            btnStyle : touchableOpacityStyle,
+            btnStyle : onPressStyle,
             color : selectDate === initDate.toString() ? selectDateColor : "#000",
         }} onPress={(e)=>{
             pressDate(initDate, fometDateText)
@@ -101,7 +99,7 @@ const CollDate = ({collDate, lastWeek, lastDate}: DateProps) => {
             defaultBorder : dateBorder.borderViewStyle,
             dateBackground : dateBackgroundViewStyle,
             dateText : dateTextStyle,
-            btnStyle : touchableOpacityStyle,
+            btnStyle : onPressStyle,
             color : selectDate === initDate.toString() ? selectDateColor : "#000"
         }} onPress={()=>{
             pressDate(initDate, fometDateText)

@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, ViewStyle } from 'react-native';
 import Button from './Button';
-import g from '../../../../../style/Global.style';
+import g from '../../../../style/Global.style';
 import LabelList from './LabelList';
-import { labelType } from '../../../../../Calendars.d';
-import { pressDateType } from '../../../../../type/compoent/date';
+import { labelType } from '../../../../Calendars';
+import { pressDateType } from '../../../../type/compoent/date';
 
 interface NowDateBtnProps {
 	text : string;
 	enableLabels : boolean;
 	label : string;
-	labelList : labelType;
+	labelList : labelType[];
 	onPress : pressDateType;
 	styles : {
 		dateBorder: ViewStyle;

@@ -1,27 +1,35 @@
-import React, { useRef } from 'react';
-import {Image, ScrollView, TouchableOpacity, Dimensions, Text, View, ViewStyle, TextStyle, ColorValue } from 'react-native';
+import React, {useState, useLayoutEffect} from 'react';
+import { ScrollView, View, StyleSheet } from 'react-native';
 import g from './style/Global.style';
-import { useState, useEffect, useLayoutEffect } from 'react';
 import Calendar from './calendars/Calendar';
-import {defaultOptionType, labelType, nowDateType, onLabelData, optionType, sizeType} from './Calendars.d';
+import {labelType, nowDateType, onLabelData, optionType, sizeType} from './Calendars.d';
+import { OptionContext, defaultOption, defaultOptionType } from './context/OptionContext';
+import TopVar from './calendars/component/topvar/TopVar';
+import { BottomLabel } from './calendars/component/label';
 
 export default function Calendars({onLabelData , ...props} : propsType){
     const [nowDate, setNowDate] = useState<nowDateType>(new Date());
     const [dataDate, setDataDate] = useState<nowDateType>(new Date());
-    const [sizeType, setSizeType] = useState<sizeType>(defaultSize);
+    const [size, setSize] = useState<sizeType>(defaultSize);
+    const [option, setOption] = useState<defaultOptionType>(defaultOption);
     const [year, setYaer] = useState<string>('2021');
     const [month, setMonth] = useState<string>('1');
-    const engMonth = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const [weekLangFormat, setWeekLangFormat] = useState<string[]>(defaultWeekLangFormat);
     let labels = props.labels.length > 5 ? props.labels.slice(0,5) : props.labels;
-    let option = {
-        ...defaultOption,
-        ...props.option
-    } as defaultOptionType;
  
-    //didmount
     useLayoutEffect(()=>{
+        init();
         setDate();
     },[]);
+
+    const init = () => {
+        let resultOption = {
+            ...option,
+            ...props.option
+        } as defaultOptionType;
+        formatWeekLangFormat();
+        setOption(resultOption);
+    }
 
     const setDate = () => {
         let nowDateTemp = new Date();
@@ -33,14 +41,14 @@ export default function Calendars({onLabelData , ...props} : propsType){
         setMonth(month.toString());
     }
 
-    const nextMonth = (e : any) => {
+    const nextMonth = () => {
         let nextDate = new Date(dataDate.getFullYear(),dataDate.getMonth()+1);
         let year = nextDate.getFullYear();
         let month = nextDate.getMonth()+1;
         setYaer(year.toString());
         setMonth(month.toString());
         setDataDate(nextDate);
-        let title = formmatTitle({
+        let title = formatTitle({
             initYear : year.toString(),
             initMonth : month.toString()
         });
@@ -49,14 +57,14 @@ export default function Calendars({onLabelData , ...props} : propsType){
         }
     }
 
-    const prevMonth = (e : any) => {
+    const prevMonth = () => {
         let nextDate = new Date(dataDate.getFullYear(),dataDate.getMonth()-1);
         let year = nextDate.getFullYear();
         let month = nextDate.getMonth()+1;
         setYaer(year.toString());
         setMonth(month.toString());
         setDataDate(nextDate);
-        let title = formmatTitle({
+        let title = formatTitle({
             initYear : year.toString(),
             initMonth : month.toString()
         });
@@ -65,131 +73,73 @@ export default function Calendars({onLabelData , ...props} : propsType){
         }
     }
 
-    const sameDate = () => {
-        if(dataDate.getFullYear() === nowDate.getFullYear()){
-            if(dataDate.getMonth() === nowDate.getMonth()){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    const formmatTitle = (initDate ?: initDateType) => {
+    const formatTitle = (initDate ?: initDateType) => {
         let dates = initDate ? initDate : {
             initYear : year,
             initMonth : month
         };
 
 
-        let titleDate = option.titleFormmat;
+        let dateText = option.titleFormat;
 
-        let titleYear = dates.initYear;
-        let titleMonth = dates.initMonth;
-        let titleEngMonth = engMonth[Number(titleMonth)-1];
-        titleDate = titleDate.replace("{year}",titleYear);
-        titleDate = titleDate.replace("{month}",titleEngMonth);
-        titleDate = titleDate.replace("{koMonth}",titleMonth);
-        return titleDate;
+        let yearText = dates.initYear;
+        let monthText = dates.initMonth;
+        let monthTitleText = weekLangFormat[Number(monthText)-1];
+        dateText = dateText.replace("{year}",yearText);
+        dateText = dateText.replace("{month}",monthTitleText);
+        dateText = dateText.replace("{koMonth}",monthText);
+        return dateText;
     }
 
-    const defaultButton = (direction ?: "next") => {
-        let onPress = prevMonth;
-        let image = require('./image/calendar_arrow_left.png');
-        if(direction === "next"){
-            onPress = nextMonth;
-            image = require('./image/calendar_arrow_right.png');
+    const formatWeekLangFormat = () => {
+        let temp = weekLangFormat;
+        if(option.weekLangFormat.length === 7){
+            temp = option.weekLangFormat.splice(0,7);
         }
-
-        return (
-            <TouchableOpacity style={[g.row,g.center,{flex:2.5,padding:10}]} onPress={(e)=>{
-                onPress(e);
-            }}>
-                <Image source={image} style={{width:20,height:20}} resizeMode="cover"/>
-            </TouchableOpacity>
-        );
+        setWeekLangFormat(temp);
     }
+
     return (
-        <ScrollView style={{backgroundColor:"#fff"}}>
-            <View style={[g.column]}>
-                <View style={[g.row,g.center]}>
+        <ScrollView style={s.container}>
+            <OptionContext.Provider value={option}>
+                <View style={[g.column]}>
 
-                    {
-                        option.disableMonthChange.prev && !sameDate() ? (
-                            <View style={[g.row,g.center,{flex:2.5,padding:10}]} />
-                        ) : option.prevButton() ? option.prevButton() : defaultButton()
-                    }
+                    <TopVar
+                        dataDate={dataDate} formatTitle={formatTitle} nextMonth={nextMonth}
+                        nowDate={nowDate} prevMonth={prevMonth} size={size}
+                    />
 
-                    <View style={[g.row,g.center,{flex:5,padding:10,...option.titleViewStyle}]}>
-                        <Text style={{color:'#000000',fontSize:sizeType === "Big" ? 20 : 15,fontWeight:'bold',...option.titleStyle}}>{formmatTitle()}</Text>
+                    <View style={[g.row]}>
+                        {/* <Calendar
+                            nowDate={nowDate} dataDate={dataDate} onLabelData={onLabelData}
+                            labels={labels} option={option} size={size}
+                        /> */}
                     </View>
 
-                    {
-                        option.disableMonthChange.next && !sameDate() ? (
-                            <View style={[g.row,g.center,{flex:2.5,padding:10}]} />
-                        ) : option.nextButton() ? option.nextButton() : defaultButton("next")
-                    }
+                    <BottomLabel labels={labels} />
 
                 </View>
-                <View style={[g.row]}>
-                    <Calendar nowDate={nowDate} dataDate={dataDate} onLabelData={onLabelData} labels={labels} option={option} size={sizeType}/>
-                </View>
-                <View style={[g.row,{flexWrap:'wrap'}]}>
-                    {
-                        option.enableLabels && 
-                        labels.map((data, num)=>{
-                            let name = data.name;
-                            return (
-                                <View key={num} style={[{marginRight:10,flexDirection:"row",alignItems:"center"}]}>
-                                    <View style={{width:10,height:10,backgroundColor:data.color,borderRadius:10}} />
-                                    <Text numberOfLines={1} ellipsizeMode='tail' style={{fontSize:13,color:'#B4B4B4',marginLeft:5}}>
-                                        {name}
-                                    </Text>
-                                </View>
-                            )
-                        })
-                    }
-                </View>
-            </View>
+            </OptionContext.Provider>
         </ScrollView>
     );
 }
 
+const s = StyleSheet.create({
+    container: {
+        backgroundColor:"#fff"
+    }
+});
+
 type propsType = {
-    labels : labelType,
+    labels : labelType[],
     option ?: optionType,
     onLabelData : onLabelData
 }
 
-export let defaultOption : defaultOptionType = {
-    disableMonthChange : {
-        next : false,
-        prev : false
-    },
-    enableLabels : true,
-    selectDateColor : "#0077CC",
-    onSelectDate : (fullDate : string)=>{console.log(`Select Date ${fullDate}`);},
-    titleFormmat : "{month} {year}",
-    weekLangFormat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"],
-    prevButton : ()=>false,
-    nextButton : ()=>false,
-    titleViewStyle : {},
-    titleStyle : {},
-    touchableOpacityStyle : {},
-    toDayTextStyle : {},
-    dateTextStyle : {},
-    toDayViewStyle : {},
-    toDayBorderViewStyle : {},
-    toDayBackgroundViewStyle : {},
-    dateBorderViewStyle : {},
-    dateBackgroundViewStyle : {},
-    toDayBorderWidth : 3,
-    onNextPress : (nextTitle : string)=>{console.log(`Next Title ${nextTitle}`);},
-    onPrevPress : (prevTitle : string)=>{console.log(`Prev Title ${prevTitle}`);},
-}
+export const defaultSize = sizeType.BIG;
+export const defaultWeekLangFormat = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-export const defaultSize = "Big";
-
-type initDateType = {
+export type initDateType = {
     initYear : string,
     initMonth : string
 }
