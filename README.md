@@ -148,7 +148,7 @@ This is the display button of the calendar move button.
 |next|boolean|true|If True, the move button will be activated next month.|
 |prev|boolean|true|If True, the move button will be activated last month.|
 ```javascript
-disableMonthChange : {c
+disableMonthChange : {
     next : false,
     prev : false
 }
