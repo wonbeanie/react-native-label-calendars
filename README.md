@@ -70,7 +70,7 @@ All parameters for components are optional. By default the month of current loca
         //This is the option to modify the selected date color.
         selectDateColor : "#0077CC",
         //This is a handler used to select a date.
-        onSelectDate : (fullDate : string)=>{console.log(`Select Date ${fullDate}`);},
+        onSelectDate : (fullDate : string, label ?: string)=>{console.log(`Select Date ${fullDate}`);},
         //It is a title format that shows the year and month.
         titleFormmat : "{month} {year}",
         //This is the day of the week display format.
@@ -178,9 +178,10 @@ This is a handler used to select a date.
 |---|---|---|---|
 |onSelectDate|Function|( fullDate : string)=>void|This is a handler used to select a date.|
 |fullDate|string|yyyy-mm-dd|Returns the value of the selected date.|
+|label|string|undefined|Returns the label for the selected date.|
 
 ```javascript
-onSelectDate : (fullDate : string) => {
+onSelectDate : (fullDate : string, label ?: string) => {
     console.log(`Select Date ${fullDate}`);
 }
 ```
