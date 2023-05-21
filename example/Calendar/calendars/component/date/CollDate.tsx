@@ -20,7 +20,7 @@ const CollDate = ({collDate, lastWeek, lastDate}: DateProps) => {
     const { labelList } = useContext(CalendarsDateContext);
 
     let border = {};
-    let onLabel = ",";
+    let onLabel = "";
     const nowFormatDateText = formatDate(new Date());
     const initDate = date.getDate().toString();
     const fomatDateText = formatDate(date);

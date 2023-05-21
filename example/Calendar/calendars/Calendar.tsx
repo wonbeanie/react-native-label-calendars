@@ -132,9 +132,9 @@ export default function Calendar({labels, onLabelData, ...props} : propsType){
         return result;
     }
 
-    const onPressDate : pressDateType = (date, fometDateText) => {
+    const onPressDate : pressDateType = (date, fometDateText, label) => {
         setSelectDate(date.toString());
-        onSelectDate(fometDateText);
+        onSelectDate(fometDateText, label);
     }
 
     const onPressOverDate : pressOverDateType = (date) => {

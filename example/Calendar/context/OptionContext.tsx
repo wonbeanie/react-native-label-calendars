@@ -1,6 +1,7 @@
 import React, {createContext} from 'react';
 import { theWeekLangFormatType } from '../type/compoent/day';
 import { TextStyle, ViewStyle } from 'react-native/types';
+import { labelType } from '../Calendars.d';
 
 export const defaultOption : defaultOptionType = {
     disableMonthChange : {
@@ -9,7 +10,7 @@ export const defaultOption : defaultOptionType = {
     },
     enableLabels : true,
     selectDateColor : "#0077CC",
-    onSelectDate : (fullDate : string)=>{console.log(`Select Date ${fullDate}`);},
+    onSelectDate : (fullDate : string, labels : labelType[])=>{console.log(`Select Date ${fullDate}`);},
     titleFormat : "{month} {year}",
     weekLangFormat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"],
     prevButton : ()=>false,
@@ -35,7 +36,7 @@ export interface defaultOptionType {
     disableMonthChange : disableMonthChangeType,
     enableLabels : boolean;
     selectDateColor : string;
-    onSelectDate : (fullDate : string)=>void;
+    onSelectDate : onSelectDateType;
     titleFormat : string;
     weekLangFormat : theWeekLangFormatType;
     prevButton : ()=>JSX.Element | false;
@@ -54,6 +55,8 @@ export interface defaultOptionType {
     onNextPress : (nextTitle : string)=>void;
     onPrevPress : (prevTitle : string)=>void;
 }
+
+export type onSelectDateType = (fullDate : string, labels : string)=>void;
 
 export interface disableMonthChangeType {
     next : boolean;

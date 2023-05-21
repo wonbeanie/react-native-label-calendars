@@ -33,7 +33,7 @@ const NowDateBtn = ({text, label, fomatDateText}: NowDateBtnProps) => {
 	const color = selectDate === text.toString() ? selectDateColor : "#000";
 
 	const onPress = () => {
-		pressDate(text, fomatDateText);
+		pressDate(text, fomatDateText, label);
 	}
 
     return (

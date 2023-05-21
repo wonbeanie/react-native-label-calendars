@@ -1,3 +1,5 @@
+import { labelType } from "../../Calendars";
+
 export interface dateOptionType {
     onPressStyle : ViewStyle;
     toDayBorderWidth : number;
@@ -12,5 +14,5 @@ export interface dateOptionType {
     size : sizeType;
 }
 
-export type pressDateType = (date : string, fometDateText : string)=>void;
+export type pressDateType = (date : string, fometDateText : string, labels : string)=>void;
 export type pressOverDateType = (date : Date)=>void;
