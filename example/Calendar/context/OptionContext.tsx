@@ -13,6 +13,7 @@ export const defaultOption : defaultOptionType = {
     onSelectDate : (fullDate : string, labels ?: string)=>{console.log(`Select Date ${fullDate}`);},
     titleFormat : "{month} {year}",
     weekLangFormat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"],
+    monthLangFormat : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
     prevButton : ()=>false,
     nextButton : ()=>false,
     titleViewStyle : {},
@@ -38,7 +39,8 @@ export interface defaultOptionType {
     selectDateColor : string;
     onSelectDate : onSelectDateType;
     titleFormat : string;
-    weekLangFormat : theWeekLangFormatType;
+    weekLangFormat : string[];
+    monthLangFormat : string[],
     prevButton : ()=>JSX.Element | false;
     nextButton : ()=>JSX.Element | false;
     titleViewStyle : ViewStyle;

@@ -90,7 +90,7 @@
       <ScrollView style={{backgroundColor:"white"}}>
         
         <View style={{padding: 10}}>
-          <Calendars labels={labels} onLabelData={onTypeData}/>
+          <Calendars labels={labels} onLabelData={onTypeData} />
         </View>
 
       </ScrollView>

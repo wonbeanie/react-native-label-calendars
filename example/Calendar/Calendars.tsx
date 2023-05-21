@@ -13,7 +13,6 @@ export default function Calendars({onLabelData , ...props} : propsType){
     const [option, setOption] = useState<defaultOptionType>(defaultOption);
     const [year, setYaer] = useState<string>('2021');
     const [month, setMonth] = useState<string>('1');
-    const [monthLangFormat, setMonthLangFormat] = useState<string[]>(defaultMonthLangFormat);
     let labels = props.labels.length > 5 ? props.labels.slice(0,5) : props.labels;
  
     useLayoutEffect(()=>{
@@ -26,8 +25,6 @@ export default function Calendars({onLabelData , ...props} : propsType){
         if(props.option){
             resultOption = Object.assign(resultOption,props.option);
         }
-        
-        formatMonthLangFormat();
         setOption(resultOption);
     }
 
@@ -84,16 +81,11 @@ export default function Calendars({onLabelData , ...props} : propsType){
 
         let yearText = dates.initYear;
         let monthText = dates.initMonth;
-        let monthTitleText = monthLangFormat[Number(monthText)-1];
+        let monthTitleText = option.monthLangFormat[Number(monthText)-1];
         dateText = dateText.replace("{year}",yearText);
         dateText = dateText.replace("{month}",monthTitleText);
         dateText = dateText.replace("{koMonth}",monthText);
         return dateText;
-    }
-
-    const formatMonthLangFormat = () => {
-        let temp = monthLangFormat;
-        setMonthLangFormat(temp);
     }
 
     return (
@@ -132,8 +124,6 @@ type propsType = {
     option ?: optionType,
     onLabelData : onLabelData
 }
-
-export const defaultMonthLangFormat = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 export type initDateType = {
     initYear : string,
