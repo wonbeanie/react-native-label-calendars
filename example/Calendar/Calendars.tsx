@@ -13,7 +13,7 @@ export default function Calendars({onLabelData , ...props} : propsType){
     const [option, setOption] = useState<defaultOptionType>(defaultOption);
     const [year, setYaer] = useState<string>('2021');
     const [month, setMonth] = useState<string>('1');
-    const [weekLangFormat, setWeekLangFormat] = useState<string[]>(defaultWeekLangFormat);
+    const [monthLangFormat, setMonthLangFormat] = useState<string[]>(defaultMonthLangFormat);
     let labels = props.labels.length > 5 ? props.labels.slice(0,5) : props.labels;
  
     useLayoutEffect(()=>{
@@ -27,7 +27,7 @@ export default function Calendars({onLabelData , ...props} : propsType){
             resultOption = Object.assign(resultOption,props.option);
         }
         
-        formatWeekLangFormat();
+        formatMonthLangFormat();
         setOption(resultOption);
     }
 
@@ -84,20 +84,16 @@ export default function Calendars({onLabelData , ...props} : propsType){
 
         let yearText = dates.initYear;
         let monthText = dates.initMonth;
-        let monthTitleText = weekLangFormat[Number(monthText)-1];
+        let monthTitleText = monthLangFormat[Number(monthText)-1];
         dateText = dateText.replace("{year}",yearText);
         dateText = dateText.replace("{month}",monthTitleText);
         dateText = dateText.replace("{koMonth}",monthText);
         return dateText;
     }
 
-    const formatWeekLangFormat = () => {
-        let temp = weekLangFormat;
-        const optionWeekLangFormat = option.weekLangFormat.slice();
-        if(optionWeekLangFormat.length === 7){
-            temp = optionWeekLangFormat.splice(0,7);
-        }
-        setWeekLangFormat(temp);
+    const formatMonthLangFormat = () => {
+        let temp = monthLangFormat;
+        setMonthLangFormat(temp);
     }
 
     return (
@@ -137,7 +133,7 @@ type propsType = {
     onLabelData : onLabelData
 }
 
-export const defaultWeekLangFormat = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+export const defaultMonthLangFormat = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 export type initDateType = {
     initYear : string,
