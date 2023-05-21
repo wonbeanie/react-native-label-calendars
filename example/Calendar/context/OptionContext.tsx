@@ -10,7 +10,7 @@ export const defaultOption : defaultOptionType = {
     },
     enableLabels : true,
     selectDateColor : "#0077CC",
-    onSelectDate : (fullDate : string, labels : labelType[])=>{console.log(`Select Date ${fullDate}`);},
+    onSelectDate : (fullDate : string, labels ?: string)=>{console.log(`Select Date ${fullDate}`);},
     titleFormat : "{month} {year}",
     weekLangFormat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"],
     prevButton : ()=>false,
@@ -56,7 +56,7 @@ export interface defaultOptionType {
     onPrevPress : (prevTitle : string)=>void;
 }
 
-export type onSelectDateType = (fullDate : string, labels : string)=>void;
+export type onSelectDateType = (fullDate : string, labels ?: string)=>void;
 
 export interface disableMonthChangeType {
     next : boolean;
