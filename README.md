@@ -179,7 +179,7 @@ selectDateColor : "#0077CC"
 This is a handler used to select a date.
 |option|Type|Default|Description|
 |---|---|---|---|
-|onSelectDate|Function|( fullDate : string)=>void|This is a handler used to select a date.|
+|onSelectDate|`Function`|( fullDate : string)=>void|This is a handler used to select a date.|
 |fullDate|`string`|yyyy-mm-dd|Returns the value of the selected date.|
 |label|`string`|undefined|Returns the label for the selected date.|
 
@@ -265,7 +265,7 @@ toDayBorderWidth : 3
 It’s a backward handler function.
 |option|Type|Default|Description|
 |---|---|---|---|
-|onPrevPress|`Function`|(prevTitle : string)=>{console.log(`Prev Title ${prevTitle}`);}||
+|onPrevPress|`Function`|(prevTitle : string)=>{console.log('Prev Title ${prevTitle}');}||
 |prevTitle|`string`|yyyy-mm-dd|Returns the value of the selected date.|
 
 ```javascript
@@ -278,7 +278,7 @@ onPrevPress : (prevTitle : string) => {
 It’s a backward handler function.
 |option|Type|Default|Description|
 |---|---|---|---|
-|onNextPress|`Function`|(nextTitle : string)=>{console.log(`Next Title ${nextTitle}`);}||
+|onNextPress|`Function`|(nextTitle : string)=>{console.log('Next Title ${nextTitle}');}||
 |nextTitle|`string`|yyyy-mm-dd|Returns the value of the selected date.|
 
 ```javascript
