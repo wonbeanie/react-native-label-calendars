@@ -121,35 +121,35 @@ All parameters for components are optional. By default the month of current loca
 ### Option Props
 |Option Name|Type|Description|
 |---|---|---|
-|[disableMonthChange](#disableMonthChange)|Object|This is the display button of the calendar move button.|
-|[enableLabels](#enableLabels)|boolean|This is the label display button.|
-|[selectDateColor](#selectDateColor)|string|This is the option to modify the selected date color.|
-|[onSelectDate](#onSelectDate)|Function|This is a handler used to select a date.|
-|[titleFormat](#titleFormat)|string|It is a title format that shows the year and month.|
-|[weekLangFormat](#weekLangFormat)|Array<[string]>|This is the day of the week display format.|
-|[weekLangFormat](#weekLangFormat)|Array<[string]>|This is the day of the month display format.|
-|[prevButton](#prevButton)|Function|It's a custom component that goes back.|
-|[nextButton](#nextButton)|Function|It's a custom component that goes forward.|
-|titleViewStyle|ViewStyle|Customized title View style.|
-|titleStyle|TextStyle|Customized title Text style.|
-|touchableOpacityStyle|ViewStyle|Customized date TouchableOpacity style.|
-|toDayTextStyle|TextStyle|Customized toDay Text style.|
-|dateTextStyle|TextStyle|Customized date Text style.|
-|toDayViewStyle|ViewStyle|Customized toDay View style.|
-|toDayBorderViewStyle|ViewStyle|Customized toDay Border View style.|
-|toDayBackgroundViewStyle|ViewStyle|Customized toDay Background View style.|
-|dateBorderViewStyle|ViewStyle|Customized date Border View style.|
-|dateBackgroundViewStyle|ViewStyle|Customized date Background View style.|
-|[toDayBorderWidth](#toDayBorderWidth)|number|Customizing the thickness of the toDay border.|
-|[onNextPress](#onNextPress)|Function|It's a backward handler function.|
-|[onPrevPress](#onPrevPress)|Function|This is the forward handler function.|
+|[disableMonthChange](#disableMonthChange)|`Object`|This is the display button of the calendar move button.|
+|[enableLabels](#enableLabels)|`boolean`|This is the label display button.|
+|[selectDateColor](#selectDateColor)|`string`|This is the option to modify the selected date color.|
+|[onSelectDate](#onSelectDate)|`Function`|This is a handler used to select a date.|
+|[titleFormat](#titleFormat)|`string`|It is a title format that shows the year and month.|
+|[weekLangFormat](#weekLangFormat)|`Array<string>`|This is the day of the week display format.|
+|[monthLangFormat](#monthLangFormat)|`Array<string>`|This is the day of the month display format.|
+|[prevButton](#prevButton)|`Function`|It's a custom component that goes back.|
+|[nextButton](#nextButton)|`Function`|It's a custom component that goes forward.|
+|titleViewStyle|`ViewStyle`|Customized title View style.|
+|titleStyle|`TextStyle`|Customized title Text style.|
+|touchableOpacityStyle|`ViewStyle`|Customized date TouchableOpacity style.|
+|toDayTextStyle|`TextStyle`|Customized toDay Text style.|
+|dateTextStyle|`TextStyle`|Customized date Text style.|
+|toDayViewStyle|`ViewStyle`|Customized toDay View style.|
+|toDayBorderViewStyle|`ViewStyle`|Customized toDay Border View style.|
+|toDayBackgroundViewStyle|`ViewStyle`|Customized toDay Background View style.|
+|dateBorderViewStyle|`ViewStyle`|Customized date Border View style.|
+|dateBackgroundViewStyle|`ViewStyle`|Customized date Background View style.|
+|[toDayBorderWidth](#toDayBorderWidth)|`number`|Customizing the thickness of the toDay border.|
+|[onNextPress](#onNextPress)|`Function`|It's a backward handler function.|
+|[onPrevPress](#onPrevPress)|`Function`|This is the forward handler function.|
 
 #### disableMonthChange
 This is the display button of the calendar move button.
 |option|Type|Default|Description|
 |---|---|---|---|
-|next|boolean|true|If True, the move button will be activated next month.|
-|prev|boolean|true|If True, the move button will be activated last month.|
+|next|`boolean`|true|If True, the move button will be activated next month.|
+|prev|`boolean`|true|If True, the move button will be activated last month.|
 ```javascript
 disableMonthChange : {
     next : false,
@@ -161,7 +161,7 @@ disableMonthChange : {
 This is the label display button.
 |option|Type|Default|Description|
 |---|---|---|---|
-|enableLabels|boolean|true|If True, the label calendar is activated.|
+|enableLabels|`boolean`|true|If True, the label calendar is activated.|
 ```javascript
 enableLabels : true
 ```
@@ -170,7 +170,7 @@ enableLabels : true
 This is the option to modify the selected date color.
 |option|Type|Default|Description|
 |---|---|---|---|
-|selectDateColor|string|"#0077CC"|Date color when selecting a date.|
+|selectDateColor|`string`|"#0077CC"|Date color when selecting a date.|
 ```javascript
 selectDateColor : "#0077CC"
 ```
@@ -180,8 +180,8 @@ This is a handler used to select a date.
 |option|Type|Default|Description|
 |---|---|---|---|
 |onSelectDate|Function|( fullDate : string)=>void|This is a handler used to select a date.|
-|fullDate|string|yyyy-mm-dd|Returns the value of the selected date.|
-|label|string|undefined|Returns the label for the selected date.|
+|fullDate|`string`|yyyy-mm-dd|Returns the value of the selected date.|
+|label|`string`|undefined|Returns the label for the selected date.|
 
 ```javascript
 onSelectDate : (fullDate : string, label ?: string) => {
@@ -193,7 +193,7 @@ onSelectDate : (fullDate : string, label ?: string) => {
 It is a title format that shows the year and month.
 |option|Type|Default|Description|
 |---|---|---|---|
-|titleFormat|string|"{month} {year}"|There are a total of three types: "{month}", "{year}", and "{koMonth}".|
+|titleFormat|`string`|"{month} {year}"|There are a total of three types: "{month}", "{year}", and "{koMonth}".|
 
 ```javascript
 titleFormat : "{month} {year}"
@@ -203,7 +203,7 @@ titleFormat : "{month} {year}"
 This is the day of the week display format.
 |option|Type|Default|Description|
 |---|---|---|---|
-|weekLangFormat|Array<[string]>|["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]|0 index is Monday.|
+|weekLangFormat|`Array<[string]>`|["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]|0 index is Monday.|
 
 ```javascript
 weekLangFormat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]
@@ -213,7 +213,7 @@ weekLangFormat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]
 This is the day of the month display format.
 |option|Type|Default|Description|
 |---|---|---|---|
-|monthLangFormat|Array<[string]>|["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]|0 index is January.|
+|monthLangFormat|`Array<[string]>`|["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]|0 index is January.|
 
 ```javascript
 monthLangFormat : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
@@ -223,7 +223,7 @@ monthLangFormat : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","
 It’s a custom component that goes back.
 |option|Type|Default|Description|
 |---|---|---|---|
-|prevButton|Function|()=>false|When returning an element, the back button changes.|
+|prevButton|`Function`|()=>false|When returning an element, the back button changes.|
 
 ```javascript
 prevButton : ()=>{
@@ -239,7 +239,7 @@ prevButton : ()=>{
 It’s a custom component that goes forward.
 |option|Type|Default|Description|
 |---|---|---|---|
-|nextButton|Function|()=>false|The forward button changes when returning the element.|
+|nextButton|`Function`|()=>false|The forward button changes when returning the element.|
 
 ```javascript
 nextButton : ()=>{
@@ -255,7 +255,7 @@ nextButton : ()=>{
 Customizing the thickness of the toDay border.
 |option|Type|Default|Description|
 |---|---|---|---|
-|toDayBorderWidth|number|3|You can modify the width of the border marked on today's date.|
+|toDayBorderWidth|`number`|3|You can modify the width of the border marked on today's date.|
 
 ```javascript
 toDayBorderWidth : 3
@@ -265,8 +265,8 @@ toDayBorderWidth : 3
 It’s a backward handler function.
 |option|Type|Default|Description|
 |---|---|---|---|
-|onPrevPress|Function|(prevTitle : string)=>{console.log(`Prev Title ${prevTitle}`);}||
-|prevTitle|string|yyyy-mm-dd|Returns the value of the selected date.|
+|onPrevPress|`Function`|(prevTitle : string)=>{console.log(`Prev Title ${prevTitle}`);}||
+|prevTitle|`string`|yyyy-mm-dd|Returns the value of the selected date.|
 
 ```javascript
 onPrevPress : (prevTitle : string) => {
@@ -278,8 +278,8 @@ onPrevPress : (prevTitle : string) => {
 It’s a backward handler function.
 |option|Type|Default|Description|
 |---|---|---|---|
-|onNextPress|Function|(nextTitle : string)=>{console.log(`Next Title ${nextTitle}`);}||
-|nextTitle|string|yyyy-mm-dd|Returns the value of the selected date.|
+|onNextPress|`Function`|(nextTitle : string)=>{console.log(`Next Title ${nextTitle}`);}||
+|nextTitle|`string`|yyyy-mm-dd|Returns the value of the selected date.|
 
 ```javascript
 onNextPress : (nextTitle : string) => {
@@ -292,8 +292,8 @@ onNextPress : (nextTitle : string) => {
 This is a list of date data to be labeled.
 |option|Type|Description|
 |---|---|---|
-|date|string|It is a date in the form of yyyy-mm-ddor Date.|
-|onLabel|Array<string>|This is the label that should be displayed in the date.|
+|date|`string`|It is a date in the form of yyyy-mm-ddor Date.|
+|onLabel|`Array<string>`|This is the label that should be displayed in the date.|
 ```javascript
 {
     date : "2021-11-03",
@@ -305,8 +305,8 @@ This is a list of date data to be labeled.
 This is the label list to be displayed.
 |option|Type|Description|
 |---|---|---|
-|name|string|It's a name that goes inside onLabel.|
-|color|string|Color labels to be displayed in the calendar.|
+|name|`string`|It's a name that goes inside onLabel.|
+|color|`string`|Color labels to be displayed in the calendar.|
 ```javascript
 {
     name : "Runner",
