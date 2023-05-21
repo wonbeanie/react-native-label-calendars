@@ -203,7 +203,7 @@ titleFormat : "{month} {year}"
 This is the day of the week display format.
 |option|Type|Default|Description|
 |---|---|---|---|
-|weekLangFormat|`Array<[string]>`|["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]|0 index is Monday.|
+|weekLangFormat|`Array<string>`|["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]|0 index is Monday.|
 
 ```javascript
 weekLangFormat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]
@@ -213,7 +213,7 @@ weekLangFormat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]
 This is the day of the month display format.
 |option|Type|Default|Description|
 |---|---|---|---|
-|monthLangFormat|`Array<[string]>`|["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]|0 index is January.|
+|monthLangFormat|`Array<string>`|["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]|0 index is January.|
 
 ```javascript
 monthLangFormat : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
