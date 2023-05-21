@@ -72,9 +72,11 @@ All parameters for components are optional. By default the month of current loca
         //This is a handler used to select a date.
         onSelectDate : (fullDate : string, label ?: string)=>{console.log(`Select Date ${fullDate}`);},
         //It is a title format that shows the year and month.
-        titleFormmat : "{month} {year}",
+        titleFormat : "{month} {year}",
         //This is the day of the week display format.
-        weekLangFormmat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"],
+        weekLangFormat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"],
+        //This is the day of the month display format.
+        monthLangFormat : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
         //It's a custom component that goes back.
         prevButton : ()=>false,
         //It's a custom component that goes forward.
@@ -123,8 +125,9 @@ All parameters for components are optional. By default the month of current loca
 |[enableLabels](#enableLabels)|boolean|This is the label display button.|
 |[selectDateColor](#selectDateColor)|string|This is the option to modify the selected date color.|
 |[onSelectDate](#onSelectDate)|Function|This is a handler used to select a date.|
-|[titleFormmat](#titleFormmat)|string|It is a title format that shows the year and month.|
-|[weekLangFormmat](#weekLangFormmat)|Array<string>|This is the day of the week display format.|
+|[titleFormat](#titleFormat)|string|It is a title format that shows the year and month.|
+|[weekLangFormat](#weekLangFormat)|Array<[string]>|This is the day of the week display format.|
+|[weekLangFormat](#weekLangFormat)|Array<[string]>|This is the day of the month display format.|
 |[prevButton](#prevButton)|Function|It's a custom component that goes back.|
 |[nextButton](#nextButton)|Function|It's a custom component that goes forward.|
 |titleViewStyle|ViewStyle|Customized title View style.|
@@ -186,24 +189,34 @@ onSelectDate : (fullDate : string, label ?: string) => {
 }
 ```
 
-#### titleFormmat
+#### titleFormat
 It is a title format that shows the year and month.
 |option|Type|Default|Description|
 |---|---|---|---|
-|titleFormmat|string|"{month} {year}"|There are a total of three types: "{month}", "{year}", and "{koMonth}".|
+|titleFormat|string|"{month} {year}"|There are a total of three types: "{month}", "{year}", and "{koMonth}".|
 
 ```javascript
-titleFormmat : "{month} {year}"
+titleFormat : "{month} {year}"
 ```
 
-#### weekLangFormmat
+#### weekLangFormat
 This is the day of the week display format.
 |option|Type|Default|Description|
 |---|---|---|---|
-|weekLangFormmat|Array<string>|["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]|0 index is Monday.|
+|weekLangFormat|Array<[string]>|["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]|0 index is Monday.|
 
 ```javascript
-weekLangFormmat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]
+weekLangFormat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]
+```
+
+#### monthLangFormat
+This is the day of the month display format.
+|option|Type|Default|Description|
+|---|---|---|---|
+|monthLangFormat|Array<[string]>|["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]|0 index is January.|
+
+```javascript
+monthLangFormat : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 ```
 
 #### prevButton
