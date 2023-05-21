@@ -8,11 +8,6 @@ export type labelType = {
 
 export type dataDateType = Date;
 
-export enum sizeType {
-    BIG,
-    SMALL
-};
-
 export type nowDateType = Date;
 
 export type onLabelData = Array<{

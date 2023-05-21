@@ -1,16 +1,17 @@
 import React, { useContext } from 'react';
-import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
+import {View} from 'react-native';
 import g from '../style/Global.style';
 import { useState, useEffect, useLayoutEffect } from 'react';
-import { labelType, sizeType, dataDateType, nowDateType, onLabelData, defaultOptionType } from '../Calendars.d';
-import { RowDay } from './component/screen/day';
+import { labelType, dataDateType, nowDateType, onLabelData } from '../Calendars.d';
 import { CalendarsDate } from './component/date';
-import { dateOptionType, pressDateType, pressOverDateType } from '../type/compoent/date';
+import {  pressDateType, pressOverDateType } from '../type/compoent/date';
 import { dateListType } from '../type/compoent/day';
 import { formatDay } from './utils/utils';
 import { CalendarsDateContext, calendarsDateContextType, initCalendarsDateContext } from '../context/CalendarsDateContext';
+import { OptionContext } from '../context/OptionContext';
+import { RowDay } from './component/day';
 
-export default function Calendar({size, labels, option, onLabelData, ...props} : propsType){
+export default function Calendar({labels, onLabelData, ...props} : propsType){
     const [dateData, setDateData] = useState<dateListType>([]);
     const [year, setYear] = useState<string>('2021');
     const [month, setMonth] = useState<string>('1');
@@ -18,7 +19,10 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
     const [nowDate, setNowDate] = useState<Date>(new Date());
     const [selectDate, setSelectDate] = useState<string>('');
     const [calendarsDateOptions, setCalendarsDateOptions] = useState<calendarsDateContextType>(initCalendarsDateContext);
-    let dayData = option.weekLangFormat.length > 7 ? option.weekLangFormat.splice(0,7) : option.weekLangFormat;
+    const {
+        weekLangFormat,
+        onSelectDate
+    } = useContext(OptionContext);
 
     //didmount
     useLayoutEffect(()=>{
@@ -31,19 +35,6 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
 
     const initContext = () => {
         setCalendarsDateOptions({
-            options : {
-                touchableOpacityStyle : option.touchableOpacityStyle,
-                toDayBorderWidth : option.toDayBorderWidth,
-                dateBorderViewStyle : option.dateBorderViewStyle,
-                dateBackgroundViewStyle : option.dateBackgroundViewStyle,
-                enableLabels : option.enableLabels,
-                toDayBackgroundViewStyle : option.toDayBackgroundViewStyle,
-                toDayBorderViewStyle : option.toDayBorderViewStyle,
-                dateTextStyle : option.dateTextStyle,
-                toDayTextStyle : option.toDayTextStyle,
-                selectDateColor : option.selectDateColor,
-                size
-            },
             labelList : onLabelData,
             labels : labels,
             pressDate : onPressDate,
@@ -143,7 +134,7 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
 
     const onPressDate : pressDateType = (date, fometDateText) => {
         setSelectDate(date.toString());
-        option.onSelectDate(fometDateText);
+        onSelectDate(fometDateText);
     }
 
     const onPressOverDate : pressOverDateType = (date) => {
@@ -152,7 +143,7 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
 
     return (
         <View style={[g.column]}>
-            <RowDay theWeekList={dayData}/>
+            <RowDay theWeekList={weekLangFormat}/>
             
             <CalendarsDateContext.Provider value={calendarsDateOptions}>
                 <CalendarsDate dateList={dateData} />
@@ -164,9 +155,7 @@ export default function Calendar({size, labels, option, onLabelData, ...props} :
 
 
 type propsType = {
-    size : sizeType,
     labels : labelType[],
-    option : defaultOptionType,
     dataDate : dataDateType,
     nowDate : nowDateType,
     onLabelData : onLabelData,

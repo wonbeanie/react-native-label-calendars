@@ -4,7 +4,6 @@ import g from '../../../style/Global.style';
 import { OptionContext } from '../../../context/OptionContext';
 import { sameDate } from '../../utils/utils';
 import { ArrowButtonType } from './ArrowButton';
-import { sizeType } from '../../../Calendars.d';
 import DefaultButton from './DefaultButton';
 
 interface TopVarProps {
@@ -13,24 +12,19 @@ interface TopVarProps {
     prevMonth : ()=>void;
     nextMonth : ()=>void;
     formatTitle : ()=>string;
-    size : sizeType;
 }
 
-const TopVar = ({dataDate, nowDate, prevMonth, nextMonth, formatTitle, size}: TopVarProps) => {
+const TopVar = ({dataDate, nowDate, prevMonth, nextMonth, formatTitle}: TopVarProps) => {
     const option = useContext(OptionContext);
     const sameDateCheck = sameDate(dataDate, nowDate);
-
-    const titleSize = size === sizeType.BIG ? 20 : 15;
-    const titleTextStyle = {fontSize:titleSize, ...option.titleStyle};
-    const titleContainerStyle = {...option.titleViewStyle};
     
     return (
         <View style={[g.row,g.center]}>
 
             <DefaultButton direction={ArrowButtonType.PREV} onPress={prevMonth} sameDateCheck={sameDateCheck}/>
 
-            <View style={[g.row,g.center, s.titleContainer, titleContainerStyle]}>
-                <Text style={[s.text, titleTextStyle]}>{formatTitle()}</Text>
+            <View style={[g.row,g.center, s.titleContainer, option.titleViewStyle]}>
+                <Text style={[s.text, option.titleStyle]}>{formatTitle()}</Text>
             </View>
 
             <DefaultButton direction={ArrowButtonType.NEXT} onPress={nextMonth} sameDateCheck={sameDateCheck}/>
@@ -48,6 +42,7 @@ const s = StyleSheet.create({
     },
     text : {
         color:'#000000',
-        fontWeight:'bold'
+        fontWeight:'bold',
+        fontSize:20
     }
 });

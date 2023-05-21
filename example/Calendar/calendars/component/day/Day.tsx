@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import g from '../../../../style/Global.style';
+import g from '../../../style/Global.style';
 
 interface componentNameProps {
 	day : string;

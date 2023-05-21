@@ -1,46 +1,47 @@
-import * as React from 'react';
-import { Text, View, StyleSheet, ViewStyle } from 'react-native';
+import React, {useContext} from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 import Button from './Button';
 import g from '../../../../style/Global.style';
 import LabelList from './LabelList';
-import { labelType } from '../../../../Calendars';
-import { pressDateType } from '../../../../type/compoent/date';
+import { CalendarsDateContext } from '../../../../context/CalendarsDateContext';
+import { OptionContext } from '../../../../context/OptionContext';
+import { setDateBorder } from '../../../utils/utils';
 
 interface DateBtnProps {
 	text : string;
-	enableLabels : boolean;
 	label : string;
-	labelList : labelType[];
-	onPress: pressDateType;
-	styles : {
-		dateBorder: ViewStyle;
-		defaultBorder : ViewStyle;
-		dateBackground : ViewStyle;
-		dateText : ViewStyle;
-		color : string;
-		btnStyle : ViewStyle;
-	}
+	fomatDateText : string;
 }
 
-const DateBtn = (props: DateBtnProps) => {
+const DateBtn = ({text, label, fomatDateText}: DateBtnProps) => {
 	const {
-		text, enableLabels, styles,
-		label, labelList, onPress
-	} = props;
+		pressDate, selectDate, labels
+	} = useContext(CalendarsDateContext);
+	
+	const {
+		enableLabels,
+		selectDateColor,
+		onPressStyle,
+		dateBorderViewStyle,
+		dateBackgroundViewStyle,
+		dateTextStyle
+	} = useContext(OptionContext);
 
-	const {
-		dateBorder, defaultBorder, dateBackground,
-		dateText, color, btnStyle
-	} = styles;
+	const defaultBorder = setDateBorder();
+	const color = selectDate === text.toString() ? selectDateColor : "#000";
+
+	const onPress = () => {
+		pressDate(text, fomatDateText);
+	}
 
 	return (
-		<Button btnStyle={btnStyle} onPress={onPress}>
-			<View style={[g.row,g.center, s.date, dateBorder, defaultBorder]}>
-				<View style={[dateBackground, s.dateTextView]}>
-					<Text style={[g.dateFontSize, {color:color, ...dateText}]}>{text}</Text>
+		<Button btnStyle={onPressStyle} onPress={onPress}>
+			<View style={[g.row,g.center, s.date, dateBorderViewStyle, defaultBorder]}>
+				<View style={[dateBackgroundViewStyle, s.dateTextView]}>
+					<Text style={[g.dateFontSize, {color, ...dateTextStyle}]}>{text}</Text>
 				</View>
 				{
-						enableLabels && <LabelList onLabel={label} labelList={labelList}  />
+						enableLabels && <LabelList onLabel={label} labelList={labels}  />
 					}
 			</View>
 		</Button>

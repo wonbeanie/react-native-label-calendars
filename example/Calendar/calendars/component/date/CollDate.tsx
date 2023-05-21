@@ -1,11 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { formatDate, setDateBorder } from '../../utils/utils';
+import { formatDate } from '../../utils/utils';
 import { collDateType } from '../../../type/compoent/day';
 import OverDateBtn from './btn/OverDateBtn';
 import NowDateBtn from './btn/NowDateBtn';
 import DateBtn from './btn/DateBtn';
-import { dateOptionType, pressDateType, pressOverDateType } from '../../../type/compoent/date';
 import { CalendarsDateContext } from '../../../context/CalendarsDateContext';
 import { useContext } from 'react';
 
@@ -16,34 +15,15 @@ interface DateProps {
 }
 
 const CollDate = ({collDate, lastWeek, lastDate}: DateProps) => {
-    let {date, otherDate} = collDate;
+    const {date, otherDate} = collDate;
 
-    const {
-        options, labelList, labels,
-        pressDate, pressOverDate, selectDate
-    } = useContext(CalendarsDateContext);
-
-    const {
-        onPressStyle,
-        toDayBorderWidth,
-        dateBorderViewStyle,
-        dateBackgroundViewStyle,
-        enableLabels,
-        toDayBackgroundViewStyle,
-        toDayBorderViewStyle,
-        dateTextStyle,
-        toDayTextStyle,
-        selectDateColor,
-        size
-    } = options;
+    const { labelList } = useContext(CalendarsDateContext);
 
     let border = {};
-    let nowFormatDateText = formatDate(new Date());
     let onLabel = ",";
-    let initDate = date.getDate().toString();
-    let fometDateText = formatDate(date);
-    let nowDateBorder = setDateBorder(size, toDayBorderWidth, "now");
-    let dateBorder = setDateBorder();
+    const nowFormatDateText = formatDate(new Date());
+    const initDate = date.getDate().toString();
+    const fomatDateText = formatDate(date);
 
     border = s.border;
 
@@ -60,8 +40,8 @@ const CollDate = ({collDate, lastWeek, lastDate}: DateProps) => {
     }
 
     
-    labelList.some((data,num)=>{
-        if(data.date === fometDateText){
+    labelList.some((data)=>{
+        if(data.date === fomatDateText){
             data.onLabel.forEach((label)=>{
                 onLabel += label+",";
             })
@@ -69,41 +49,15 @@ const CollDate = ({collDate, lastWeek, lastDate}: DateProps) => {
     });
 
     if(otherDate){
-        return <OverDateBtn text={initDate} enableLabels={enableLabels} label={onLabel} labelList={labels} styles={{
-            dateBorder: dateBorderViewStyle,
-            defaultBorder : dateBorder.borderViewStyle,
-            dateBackground : dateBackgroundViewStyle,
-            btnStyle : onPressStyle
-        }} onPress={()=>{
-            pressOverDate(date);
-        }}/>
+        return <OverDateBtn text={initDate} label={onLabel}/>
     }
 
-    if(nowFormatDateText === fometDateText){
-        return <NowDateBtn text={initDate} enableLabels={enableLabels} label={onLabel} labelList={labels} styles={{
-            dateBorder: toDayBorderViewStyle,
-            defaultBorder : nowDateBorder.borderViewStyle,
-            toDayBackground : toDayBackgroundViewStyle,
-            dateText : dateTextStyle,
-            toDayText : toDayTextStyle,
-            btnStyle : onPressStyle,
-            color : selectDate === initDate.toString() ? selectDateColor : "#000",
-        }} onPress={(e)=>{
-            pressDate(initDate, fometDateText)
-        }}/>
+    if(nowFormatDateText === fomatDateText){
+        return <NowDateBtn text={initDate} label={onLabel} fomatDateText={fomatDateText}/>
     }
 
     return (
-        <DateBtn text={initDate} enableLabels={enableLabels} label={onLabel} labelList={labels} styles={{
-            dateBorder: dateBorderViewStyle,
-            defaultBorder : dateBorder.borderViewStyle,
-            dateBackground : dateBackgroundViewStyle,
-            dateText : dateTextStyle,
-            btnStyle : onPressStyle,
-            color : selectDate === initDate.toString() ? selectDateColor : "#000"
-        }} onPress={()=>{
-            pressDate(initDate, fometDateText)
-        }}/>
+        <DateBtn text={initDate} label={onLabel} fomatDateText={fomatDateText}/>
     );
 };
 

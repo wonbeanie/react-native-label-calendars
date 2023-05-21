@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import g from '../../../../style/Global.style';
+import { View, StyleSheet } from 'react-native';
+import g from '../../../style/Global.style';
 import Day from './Day';
-import { theWeekLangFormatType } from '../../../../type/compoent/day';
+import { theWeekLangFormatType } from '../../../type/compoent/day';
 
 interface RowDayProps {
 	theWeekList : theWeekLangFormatType;

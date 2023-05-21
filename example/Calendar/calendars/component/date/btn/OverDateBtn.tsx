@@ -1,45 +1,39 @@
-import * as React from 'react';
-import { Text, View, StyleSheet, ViewStyle } from 'react-native';
+import React, {useContext} from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 import Button from './Button';
 import g from '../../../../style/Global.style';
 import LabelList from './LabelList';
-import { labelType } from '../../../../Calendars';
-import { pressOverDateType } from '../../../../type/compoent/date';
+import { OptionContext } from '../../../../context/OptionContext';
+import { CalendarsDateContext } from '../../../../context/CalendarsDateContext';
+import { setDateBorder } from '../../../utils/utils';
 
 interface OverDateBtnProps {
 	text : string;
-	enableLabels : boolean;
 	label : string;
-	labelList : labelType[];
-	onPress : pressOverDateType;
-	styles : {
-		dateBorder: ViewStyle;
-		defaultBorder : ViewStyle;
-		dateBackground : ViewStyle;
-		btnStyle : ViewStyle;
-	}
 }
 
-const OverDateBtn = (props: OverDateBtnProps) => {
+const OverDateBtn = ({text, label}: OverDateBtnProps) => {
 	const {
-		text, enableLabels, styles,
-		label, labelList, onPress
-	} = props;
+		labels, pressOverDate
+	} = useContext(CalendarsDateContext);
 	
 	const {
-		dateBorder, defaultBorder, dateBackground,
-		btnStyle
-	} = styles;
-	
+		enableLabels,
+		onPressStyle,
+		dateBorderViewStyle,
+		dateBackgroundViewStyle,
+	} = useContext(OptionContext);
+
+	let dateBorder = setDateBorder();
 
 	return (
-		<Button btnStyle={btnStyle} onPress={onPress}>
-			<View style={[g.row,g.center, s.overDate, dateBorder, defaultBorder]}>
-				<View style={[dateBackground, s.dateTextView]}>
+		<Button btnStyle={onPressStyle} onPress={pressOverDate}>
+			<View style={[g.row,g.center, s.overDate, dateBorderViewStyle, dateBorder]}>
+				<View style={[dateBackgroundViewStyle, s.dateTextView]}>
 					<Text style={[s.text, g.dateFontSize]}>{text}</Text>
 				</View>
 					{
-						enableLabels && <LabelList onLabel={label} labelList={labelList}  />
+						enableLabels && <LabelList onLabel={label} labelList={labels}  />
 					}
 			</View>
 		</Button>

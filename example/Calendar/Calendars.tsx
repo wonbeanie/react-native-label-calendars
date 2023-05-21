@@ -2,7 +2,7 @@ import React, {useState, useLayoutEffect} from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
 import g from './style/Global.style';
 import Calendar from './calendars/Calendar';
-import {labelType, nowDateType, onLabelData, optionType, sizeType} from './Calendars.d';
+import {labelType, nowDateType, onLabelData, optionType} from './Calendars.d';
 import { OptionContext, defaultOption, defaultOptionType } from './context/OptionContext';
 import TopVar from './calendars/component/topvar/TopVar';
 import { BottomLabel } from './calendars/component/label';
@@ -10,7 +10,6 @@ import { BottomLabel } from './calendars/component/label';
 export default function Calendars({onLabelData , ...props} : propsType){
     const [nowDate, setNowDate] = useState<nowDateType>(new Date());
     const [dataDate, setDataDate] = useState<nowDateType>(new Date());
-    const [size, setSize] = useState<sizeType>(defaultSize);
     const [option, setOption] = useState<defaultOptionType>(defaultOption);
     const [year, setYaer] = useState<string>('2021');
     const [month, setMonth] = useState<string>('1');
@@ -23,10 +22,11 @@ export default function Calendars({onLabelData , ...props} : propsType){
     },[]);
 
     const init = () => {
-        let resultOption = {
-            ...option,
-            ...props.option
-        } as defaultOptionType;
+        let resultOption = defaultOption;
+        if(props.option){
+            resultOption = Object.assign(resultOption,props.option);
+        }
+        
         formatWeekLangFormat();
         setOption(resultOption);
     }
@@ -93,8 +93,9 @@ export default function Calendars({onLabelData , ...props} : propsType){
 
     const formatWeekLangFormat = () => {
         let temp = weekLangFormat;
-        if(option.weekLangFormat.length === 7){
-            temp = option.weekLangFormat.splice(0,7);
+        const optionWeekLangFormat = option.weekLangFormat.slice();
+        if(optionWeekLangFormat.length === 7){
+            temp = optionWeekLangFormat.splice(0,7);
         }
         setWeekLangFormat(temp);
     }
@@ -106,14 +107,14 @@ export default function Calendars({onLabelData , ...props} : propsType){
 
                     <TopVar
                         dataDate={dataDate} formatTitle={formatTitle} nextMonth={nextMonth}
-                        nowDate={nowDate} prevMonth={prevMonth} size={size}
+                        nowDate={nowDate} prevMonth={prevMonth}
                     />
 
                     <View style={[g.row]}>
-                        {/* <Calendar
+                        <Calendar
                             nowDate={nowDate} dataDate={dataDate} onLabelData={onLabelData}
-                            labels={labels} option={option} size={size}
-                        /> */}
+                            labels={labels}
+                        />
                     </View>
 
                     <BottomLabel labels={labels} />
@@ -136,7 +137,6 @@ type propsType = {
     onLabelData : onLabelData
 }
 
-export const defaultSize = sizeType.BIG;
 export const defaultWeekLangFormat = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 export type initDateType = {

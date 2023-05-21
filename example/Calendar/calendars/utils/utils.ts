@@ -16,30 +16,17 @@ export const formatDate = (data : Date) => {
     return `${year}-${month}-${date}`;
 }
 
-export const setDateBorder = (size : sizeType = "Big", borderWidth ?: number, type ?: string) => {
-    let paddingMax = 10;
+export const setDateBorder = (borderWidth ?: number, type ?: string) => {
     let borderWidthDefault = 3;
     borderWidth = 0;
-
-    if(size === "Small"){
-        paddingMax = 5;
-        borderWidthDefault = 2;
-    }
 
     if(type){
         borderWidth = borderWidth ? borderWidth : borderWidthDefault;
     }
-
-    let borderStyle = {
-        borderViewStyle : {
-            padding: borderWidth
-        },
-        backgroundViewStyle : {
-            padding: paddingMax-borderWidth
-        }
-    };
     
-    return borderStyle;
+    return {
+        padding: borderWidth
+    };
 }
 
 export const formatDay = (day:number) => {
