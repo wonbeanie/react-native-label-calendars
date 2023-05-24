@@ -85,8 +85,8 @@ All parameters for components are optional. By default the month of current loca
         titleViewStyle : {},
         //Customized title Text style.
         titleStyle : {},
-        //Customized date TouchableOpacity style.
-        touchableOpacityStyle : {},
+        //Customized date Pressable style.
+        onPressStyle : {},
         //Customized toDay Text style.
         toDayTextStyle : {},
         //Customized date Text style.
@@ -132,7 +132,7 @@ All parameters for components are optional. By default the month of current loca
 |[nextButton](#nextButton)|`Function`|It's a custom component that goes forward.|
 |titleViewStyle|`ViewStyle`|Customized title View style.|
 |titleStyle|`TextStyle`|Customized title Text style.|
-|touchableOpacityStyle|`ViewStyle`|Customized date TouchableOpacity style.|
+|onPressStyle|`ViewStyle`|Customized date Pressable style.|
 |toDayTextStyle|`TextStyle`|Customized toDay Text style.|
 |dateTextStyle|`TextStyle`|Customized date Text style.|
 |toDayViewStyle|`ViewStyle`|Customized toDay View style.|
