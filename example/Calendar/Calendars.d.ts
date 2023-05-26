@@ -41,4 +41,8 @@ export type optionType = {
     toDayBorderWidth ?: number,
     onNextPress ?: (e : any, nextTitle : string)=>void,
     onPrevPress ?: (e : any, prevTitle : string)=>void,
+    moveDateRange ?: {
+        min ?: string,
+        max ?: string
+    }
 }

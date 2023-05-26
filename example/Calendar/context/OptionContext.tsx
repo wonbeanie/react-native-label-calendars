@@ -29,6 +29,10 @@ export const defaultOption : defaultOptionType = {
     toDayBorderWidth : 3,
     onNextPress : (nextTitle : string)=>{console.log(`Next Title ${nextTitle}`);},
     onPrevPress : (prevTitle : string)=>{console.log(`Prev Title ${prevTitle}`);},
+    moveDateRange : {
+        min : "",
+        max : ""
+    }
 }
 
 export const OptionContext = createContext(defaultOption);
@@ -56,6 +60,10 @@ export interface defaultOptionType {
     toDayBorderWidth : number;
     onNextPress : (nextTitle : string)=>void;
     onPrevPress : (prevTitle : string)=>void;
+    moveDateRange : {
+        min : string,
+        max : string
+    }
 }
 
 export type onSelectDateType = (fullDate : string, labels ?: string)=>void;
