@@ -107,6 +107,11 @@ All parameters for components are optional. By default the month of current loca
         onNextPress : (nextTitle : string)=>{console.log(`Next Title ${nextTitle}`);},
         //This is the forward handler function.
         onPrevPress : (prevTitle : string)=>{console.log(`Prev Title ${prevTitle}`);},
+        //Limit date movement using Month Button.
+        moveDateRange : {
+            min : "",
+            max : "",
+        }
     }
 />
 ```
@@ -143,6 +148,7 @@ All parameters for components are optional. By default the month of current loca
 |[toDayBorderWidth](#toDayBorderWidth)|`number`|Customizing the thickness of the toDay border.|
 |[onNextPress](#onNextPress)|`Function`|It's a backward handler function.|
 |[onPrevPress](#onPrevPress)|`Function`|This is the forward handler function.|
+|[moveDateRange](#moveDateRange)|`Object`|Limit date movement using Month Button.|
 
 #### disableMonthChange
 This is the display button of the calendar move button.
@@ -284,6 +290,19 @@ It’s a backward handler function.
 ```javascript
 onNextPress : (nextTitle : string) => {
     console.log(`Next Title ${nextTitle}`);
+}
+```
+
+#### disableMonthChange
+This is the display button of the calendar move button.
+|option|Type|Default|Description|
+|---|---|---|---|
+|min|`yyyy-mm`|""|Unable to move to before that date.|
+|max|`yyyy-mm`|""|Unable to move to after that date.|
+```javascript
+disableMonthChange : {
+    min : "",
+    max : "",
 }
 ```
 
