@@ -1,6 +1,3 @@
-import { initDateType } from "../../Calendars";
-import { optionType, sizeType } from "../../Calendars.d";
-
 export const formatDate = (data : Date) => {
     let year = data.getFullYear();
     let month = (data.getMonth()+1).toString();
@@ -42,4 +39,10 @@ export const sameDate = (base : Date, target : Date) => {
         }
     }
     return true;
+}
+
+export const dateMonthCompare = (base : Date, target : Date) => {
+    let baseDate = new Date(base.getFullYear(), base.getMonth(), 1);
+    let targetDate = new Date(target.getFullYear(), target.getMonth(), 1);
+    return baseDate.getTime() >= targetDate.getTime();
 }
