@@ -6,6 +6,7 @@ import {labelType, nowDateType, onLabelData, optionType} from './Calendars.d';
 import { OptionContext, defaultOption, defaultOptionType } from './context/OptionContext';
 import TopVar from './calendars/component/topvar/TopVar';
 import { BottomLabel } from './calendars/component/label';
+import { dateMonthCompare } from './calendars/utils/utils';
 
 export default function Calendars({onLabelData , ...props} : propsType){
     const [nowDate, setNowDate] = useState<nowDateType>(new Date());
@@ -42,32 +43,85 @@ export default function Calendars({onLabelData , ...props} : propsType){
         let nextDate = new Date(dataDate.getFullYear(),dataDate.getMonth()+1);
         let year = nextDate.getFullYear();
         let month = nextDate.getMonth()+1;
-        setYaer(year.toString());
-        setMonth(month.toString());
-        setDataDate(nextDate);
+        let range = new Date(option.moveDateRange.max);
+        let currnetCheck = dateMonthCompare(dataDate, range);
+        let nextCheck = dateMonthCompare(nextDate, range);
+        if(moveDateRangeCheck(nextCheck, moveDateRangeType.MAX)){
+            return;
+        }
+
         let title = formatTitle({
             initYear : year.toString(),
             initMonth : month.toString()
         });
+
         if(option.onNextPress){
             option.onNextPress(title);
+            if(currnetCheck){
+                return;
+            }
         }
+
+        setYaer(year.toString());
+        setMonth(month.toString());
+        setDataDate(nextDate);
     }
 
     const prevMonth = () => {
         let nextDate = new Date(dataDate.getFullYear(),dataDate.getMonth()-1);
         let year = nextDate.getFullYear();
         let month = nextDate.getMonth()+1;
-        setYaer(year.toString());
-        setMonth(month.toString());
-        setDataDate(nextDate);
+        let range = new Date(option.moveDateRange.min);
+        let currnetCheck = dateMonthCompare(range, dataDate);
+        let nextCheck = dateMonthCompare(range, nextDate);
+        if(moveDateRangeCheck(nextCheck, moveDateRangeType.MIN)){
+            return;
+        }
+
         let title = formatTitle({
             initYear : year.toString(),
             initMonth : month.toString()
         });
+
         if(option.onPrevPress){
             option.onPrevPress(title);
+            if(currnetCheck){
+                return;
+            }
         }
+
+        setYaer(year.toString());
+        setMonth(month.toString());
+        setDataDate(nextDate);
+    }
+
+    const moveDateRangeCheck = (next : boolean, type : moveDateRangeType) => {
+        let newOption = {
+            ...option,
+            disableMonthChange : {
+                prev : false,
+                next : false
+            }
+        }
+
+        if(!next){
+            setOption(newOption);
+            return false;
+        }
+
+        if(type === moveDateRangeType.MIN){
+            newOption.disableMonthChange.prev = true;
+        }
+        else {
+            newOption.disableMonthChange.next = true;
+        }
+        setOption(newOption);
+
+        if(next){
+            return false;
+        }
+
+        return true;
     }
 
     const formatTitle = (initDate ?: initDateType) => {
@@ -128,4 +182,9 @@ type propsType = {
 export type initDateType = {
     initYear : string,
     initMonth : string
+}
+
+enum moveDateRangeType {
+    MIN = "min",
+    MAX = "max"
 }
