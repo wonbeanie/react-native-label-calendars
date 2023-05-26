@@ -12,7 +12,9 @@ interface DefaultButtonProps {
 
 const DefaultButton = ({onPress, direction, sameDateCheck}: DefaultButtonProps) => {
     let option = useContext(OptionContext);
-    let blinkCheck = option.disableMonthChange.prev && !sameDateCheck;
+    let blinkCheck = direction === ArrowButtonType.PREV ?
+    option.disableMonthChange.prev && !sameDateCheck : 
+    option.disableMonthChange.next && !sameDateCheck;
 
     if(blinkCheck){
         return <BlinkButton />;
