@@ -293,14 +293,14 @@ onNextPress : (nextTitle : string) => {
 }
 ```
 
-#### disableMonthChange
-This is the display button of the calendar move button.
+#### moveDateRange
+Limit date movement using Month Button.
 |option|Type|Default|Description|
 |---|---|---|---|
 |min|`yyyy-mm`|""|Unable to move to before that date.|
 |max|`yyyy-mm`|""|Unable to move to after that date.|
 ```javascript
-disableMonthChange : {
+moveDateRange : {
     min : "",
     max : "",
 }
