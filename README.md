@@ -35,6 +35,20 @@ All parameters for components are optional. By default the month of current loca
   <img src="https://github.com/wonbeanie/react-native-label-calendars/blob/develop/TestImage.png?raw=true">
 </kbd>
 
+#### Use the Calendars
+
+```javascript
+import Calendars from 'react-native-label-calendars';
+
+const App = () => {
+  return (
+    <Calendars />
+  );
+};
+
+export default App;
+```
+
 #### Default parameters
 
 ```javascript
@@ -119,8 +133,8 @@ All parameters for components are optional. By default the month of current loca
 ### Props
 |Prop Name|Type|Essential|Description|
 |---|---|---|---|
-|onLabelData|Array<[LabelData](#LabelData)>|true|Date Label Data|
-|labels|Array<[Label](#Label)>|true|Label List Data|
+|onLabelData|Array<[LabelData](#LabelData)>|false|Date Label Data|
+|labels|Array<[Label](#Label)>|false|Label List Data|
 |option|Object|false|{}|options|
 
 ### Option Props

@@ -15,14 +15,13 @@
    useColorScheme,
    View,
  } from 'react-native';
-// import { Calendar } from 'react-native-calendars';
  
  import {
    Colors,
  } from 'react-native/Libraries/NewAppScreen';
  
- import Calendars from './Calendar/Calendars';
-//  import CalendarsView from './CalendarView/Calendars';
+import Calendars from './Calendar/Calendars';
+// import Calendars from 'react-native-label-calendars';
  
  const App = () => {
    const isDarkMode = useColorScheme() === 'dark';

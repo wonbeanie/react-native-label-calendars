@@ -8,13 +8,13 @@ import TopVar from './calendars/component/topvar/TopVar';
 import { BottomLabel } from './calendars/component/label';
 import { dateMonthCompare } from './calendars/utils/utils';
 
-export default function Calendars({onLabelData , ...props} : propsType){
+export default function Calendars({onLabelData = [], labels : propsLabel = [], option : propsOption} : propsType){
     const [nowDate, setNowDate] = useState<nowDateType>(new Date());
     const [dataDate, setDataDate] = useState<nowDateType>(new Date());
     const [option, setOption] = useState<defaultOptionType>(defaultOption);
     const [year, setYaer] = useState<string>('2021');
     const [month, setMonth] = useState<string>('1');
-    let labels = props.labels.length > 5 ? props.labels.slice(0,5) : props.labels;
+    let labels = propsLabel.length > 5 ? propsLabel.slice(0,5) : propsLabel;
  
     useLayoutEffect(()=>{
         init();
@@ -23,8 +23,8 @@ export default function Calendars({onLabelData , ...props} : propsType){
 
     const init = () => {
         let resultOption = defaultOption;
-        if(props.option){
-            resultOption = Object.assign(resultOption,props.option);
+        if(propsOption){
+            resultOption = Object.assign(resultOption,propsOption);
         }
         setOption(resultOption);
     }
@@ -174,9 +174,9 @@ const s = StyleSheet.create({
 });
 
 type propsType = {
-    labels : labelType[],
+    labels ?: labelType[],
     option ?: optionType,
-    onLabelData : onLabelData
+    onLabelData ?: onLabelData
 }
 
 export type initDateType = {
