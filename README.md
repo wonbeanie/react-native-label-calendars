@@ -37,7 +37,7 @@ All parameters for components are optional. By default the month of current loca
 
 #### Use the Calendars
 
-```javascript
+```typescript
 import Calendars from 'react-native-label-calendars';
 
 const App = () => {
@@ -51,7 +51,7 @@ export default App;
 
 #### Default parameters
 
-```javascript
+```typescript
 <Calendars
     onLabelData={[
         {
@@ -73,7 +73,7 @@ export default App;
             color : "#40BADC"
         },
     ]}
-    option={
+    option={{
         //This is the display button of the calendar move button.
         disableMonthChange : {
             next : false,
@@ -128,7 +128,7 @@ export default App;
         },
         //Restrict the ability to move when clicking on a date other than the current month of the calendar
         overDateClickToMove : true
-    }
+    }}
 />
 ```
 
@@ -173,7 +173,7 @@ This is the display button of the calendar move button.
 |---|---|---|---|
 |next|`boolean`|true|If True, the move button will be activated next month.|
 |prev|`boolean`|true|If True, the move button will be activated last month.|
-```javascript
+```typescript
 disableMonthChange : {
     next : false,
     prev : false
@@ -185,7 +185,7 @@ This is the label display button.
 |option|Type|Default|Description|
 |---|---|---|---|
 |enableLabels|`boolean`|true|If True, the label calendar is activated.|
-```javascript
+```typescript
 enableLabels : true
 ```
 
@@ -194,7 +194,7 @@ This is the option to modify the selected date color.
 |option|Type|Default|Description|
 |---|---|---|---|
 |selectDateColor|`string`|"#0077CC"|Date color when selecting a date.|
-```javascript
+```typescript
 selectDateColor : "#0077CC"
 ```
 
@@ -206,7 +206,7 @@ This is a handler used to select a date.
 |fullDate|`string`|yyyy-mm-dd|Returns the value of the selected date.|
 |label|`string`|undefined|Returns the label for the selected date.|
 
-```javascript
+```typescript
 onSelectDate : (fullDate : string, label ?: string) => {
     console.log(`Select Date ${fullDate}`);
 }
@@ -218,7 +218,7 @@ It is a title format that shows the year and month.
 |---|---|---|---|
 |titleFormat|`string`|"{month} {year}"|There are a total of three types: "{month}", "{year}", and "{koMonth}".|
 
-```javascript
+```typescript
 titleFormat : "{month} {year}"
 ```
 
@@ -228,7 +228,7 @@ This is the day of the week display format.
 |---|---|---|---|
 |weekLangFormat|`Array<string>`|["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]|0 index is Monday.|
 
-```javascript
+```typescript
 weekLangFormat : ["Mon","Tue","Wed","Thu","Fir","Sat","Sun"]
 ```
 
@@ -238,7 +238,7 @@ This is the day of the month display format.
 |---|---|---|---|
 |monthLangFormat|`Array<string>`|["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]|0 index is January.|
 
-```javascript
+```typescript
 monthLangFormat : ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 ```
 
@@ -248,7 +248,7 @@ It’s a custom component that goes back.
 |---|---|---|---|
 |prevButton|`Function`|()=>false|When returning an element, the back button changes.|
 
-```javascript
+```typescript
 prevButton : ()=>{
     return (
         <View>
@@ -264,7 +264,7 @@ It’s a custom component that goes forward.
 |---|---|---|---|
 |nextButton|`Function`|()=>false|The forward button changes when returning the element.|
 
-```javascript
+```typescript
 nextButton : ()=>{
     return (
         <View>
@@ -280,7 +280,7 @@ Customizing the thickness of the toDay border.
 |---|---|---|---|
 |toDayBorderWidth|`number`|3|You can modify the width of the border marked on today's date.|
 
-```javascript
+```typescript
 toDayBorderWidth : 3
 ```
 
@@ -291,7 +291,7 @@ It’s a backward handler function.
 |onPrevPress|`Function`|(prevTitle : string)=>{console.log('Prev Title ${prevTitle}');}||
 |prevTitle|`string`|yyyy-mm-dd|Returns the value of the selected date.|
 
-```javascript
+```typescript
 onPrevPress : (prevTitle : string) => {
     console.log(`Prev Title ${prevTitle}`);
 }
@@ -304,7 +304,7 @@ It’s a backward handler function.
 |onNextPress|`Function`|(nextTitle : string)=>{console.log('Next Title ${nextTitle}');}||
 |nextTitle|`string`|yyyy-mm-dd|Returns the value of the selected date.|
 
-```javascript
+```typescript
 onNextPress : (nextTitle : string) => {
     console.log(`Next Title ${nextTitle}`);
 }
@@ -316,7 +316,7 @@ Limit date movement using Month Button.
 |---|---|---|---|
 |min|`yyyy-mm`|""|Unable to move to before that date.|
 |max|`yyyy-mm`|""|Unable to move to after that date.|
-```javascript
+```typescript
 moveDateRange : {
     min : "",
     max : "",
@@ -328,7 +328,7 @@ Restrict the ability to move when clicking on a date other than the current mont
 |option|Type|Default|Description|
 |---|---|---|---|
 |overDateClickToMove|boolean|true|true is move to Month|
-```javascript
+```typescript
 overDateClickToMove : true
 ```
 
@@ -339,7 +339,7 @@ This is a list of date data to be labeled.
 |---|---|---|
 |date|`string`|It is a date in the form of yyyy-mm-ddor Date.|
 |onLabel|`Array<string>`|This is the label that should be displayed in the date.|
-```javascript
+```typescript
 {
     date : "2021-11-03",
     onLabel : ["Runner"]
@@ -352,7 +352,7 @@ This is the label list to be displayed.
 |---|---|---|
 |name|`string`|It's a name that goes inside onLabel.|
 |color|`string`|Color labels to be displayed in the calendar.|
-```javascript
+```typescript
 {
     name : "Runner",
     color : "#000"
