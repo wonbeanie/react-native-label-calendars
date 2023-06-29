@@ -125,7 +125,9 @@ export default App;
         moveDateRange : {
             min : "",
             max : "",
-        }
+        },
+        //Restrict the ability to move when clicking on a date other than the current month of the calendar
+        overDateClickToMove : true
     }
 />
 ```
@@ -163,6 +165,7 @@ export default App;
 |[onNextPress](#onNextPress)|`Function`|It's a backward handler function.|
 |[onPrevPress](#onPrevPress)|`Function`|This is the forward handler function.|
 |[moveDateRange](#moveDateRange)|`Object`|Limit date movement using Month Button.|
+|[overDateClickToMove](#overDateClickToMove)|`boolean`|Restrict the ability to move when clicking on a date other than the current month of the calendar.|
 
 #### disableMonthChange
 This is the display button of the calendar move button.
@@ -318,6 +321,15 @@ moveDateRange : {
     min : "",
     max : "",
 }
+```
+
+#### overDateClickToMove
+Restrict the ability to move when clicking on a date other than the current month of the calendar.
+|option|Type|Default|Description|
+|---|---|---|---|
+|overDateClickToMove|boolean|true|true is move to Month|
+```javascript
+overDateClickToMove : true
 ```
 
 ### Types
