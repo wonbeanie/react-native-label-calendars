@@ -32,7 +32,8 @@ export const defaultOption : defaultOptionType = {
     moveDateRange : {
         min : "",
         max : ""
-    }
+    },
+    overDateClickToMove : true,
 }
 
 export const OptionContext = createContext(defaultOption);
@@ -63,7 +64,8 @@ export interface defaultOptionType {
     moveDateRange : {
         min : string,
         max : string
-    }
+    },
+    overDateClickToMove : Boolean,
 }
 
 export type onSelectDateType = (fullDate : string, labels ?: string)=>void;

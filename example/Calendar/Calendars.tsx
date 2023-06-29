@@ -144,6 +144,10 @@ export default function Calendars({onLabelData = [], labels : propsLabel = [], o
     }
 
     const moveDate = (type : moveDateEnum) => {
+        if(!option.overDateClickToMove){
+            return;
+        }
+        
         if(type === moveDateEnum.NEXT){
             nextMonth();
             return;

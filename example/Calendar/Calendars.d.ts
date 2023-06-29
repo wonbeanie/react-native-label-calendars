@@ -44,5 +44,6 @@ export type optionType = {
     moveDateRange ?: {
         min ?: string,
         max ?: string
-    }
+    },
+    overDateClickToMove : boolean,
 }
