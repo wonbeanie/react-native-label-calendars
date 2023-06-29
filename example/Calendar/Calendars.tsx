@@ -7,6 +7,7 @@ import { OptionContext, defaultOption, defaultOptionType } from './context/Optio
 import TopVar from './calendars/component/topvar/TopVar';
 import { BottomLabel } from './calendars/component/label';
 import { dateMonthCompare } from './calendars/utils/utils';
+import { moveDateEnum } from './type/compoent/date.d';
 
 export default function Calendars({onLabelData = [], labels : propsLabel = [], option : propsOption} : propsType){
     const [nowDate, setNowDate] = useState<nowDateType>(new Date());
@@ -142,6 +143,14 @@ export default function Calendars({onLabelData = [], labels : propsLabel = [], o
         return dateText;
     }
 
+    const moveDate = (type : moveDateEnum) => {
+        if(type === moveDateEnum.NEXT){
+            nextMonth();
+            return;
+        }
+        prevMonth();
+    }
+
     return (
         <ScrollView style={s.container}>
             <OptionContext.Provider value={option}>
@@ -155,7 +164,7 @@ export default function Calendars({onLabelData = [], labels : propsLabel = [], o
                     <View style={[g.row]}>
                         <Calendar
                             nowDate={nowDate} dataDate={dataDate} onLabelData={onLabelData}
-                            labels={labels}
+                            labels={labels} moveDate={moveDate}
                         />
                     </View>
 

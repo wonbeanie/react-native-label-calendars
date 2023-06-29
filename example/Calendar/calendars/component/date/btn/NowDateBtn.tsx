@@ -8,12 +8,12 @@ import { OptionContext } from '../../../../context/OptionContext';
 import { formatDate, setDateBorder } from '../../../utils/utils';
 
 interface NowDateBtnProps {
-	text : string;
+	date : Date;
 	label : string;
 	fomatDateText : string;
 }
 
-const NowDateBtn = ({text, label, fomatDateText}: NowDateBtnProps) => {
+const NowDateBtn = ({date, label, fomatDateText}: NowDateBtnProps) => {
 	const {
 		pressDate, selectDate, labels
 	} = useContext(CalendarsDateContext);
@@ -30,17 +30,18 @@ const NowDateBtn = ({text, label, fomatDateText}: NowDateBtnProps) => {
 	} = useContext(OptionContext);
 
 	const defaultBorder = setDateBorder(toDayBorderWidth, "now");
-	const color = selectDate === text.toString() ? selectDateColor : "#000";
+	const dateText = date.getDate().toString();
+	const color = selectDate === dateText.toString() ? selectDateColor : "#000";
 
 	const onPress = () => {
-		pressDate(text, fomatDateText, label);
+		pressDate(dateText, fomatDateText, label);
 	}
 
     return (
 		<Button btnStyle={onPressStyle} onPress={onPress}>
 			<View style={[g.row,g.center, s.nowDate, toDayBorderViewStyle, defaultBorder]}>
 				<View style={[g.row,g.center, s.backgroundColor, toDayBackgroundViewStyle, s.dateTextView]}>
-					<Text style={[g.dateFontSize, {color:color, ...dateTextStyle, ...toDayTextStyle}]}>{text}</Text>
+					<Text style={[g.dateFontSize, {color:color, ...dateTextStyle, ...toDayTextStyle}]}>{dateText}</Text>
 				</View>
 				{
 					enableLabels && <LabelList onLabel={label} labelList={labels}  />

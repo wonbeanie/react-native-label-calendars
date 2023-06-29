@@ -15,4 +15,8 @@ export interface dateOptionType {
 }
 
 export type pressDateType = (date : string, fometDateText : string, labels : string)=>void;
-export type pressOverDateType = (date : Date)=>void;
+export type pressOverDateType = (dateMove : moveDateEnum)=>void;
+export enum moveDateEnum {
+    PREV,
+    NEXT
+}

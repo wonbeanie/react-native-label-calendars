@@ -22,7 +22,6 @@ const CollDate = ({collDate, lastWeek, lastDate}: DateProps) => {
     let border = {};
     let onLabel = "";
     const nowFormatDateText = formatDate(new Date());
-    const initDate = date.getDate().toString();
     const fomatDateText = formatDate(date);
 
     border = s.border;
@@ -49,15 +48,15 @@ const CollDate = ({collDate, lastWeek, lastDate}: DateProps) => {
     });
 
     if(otherDate){
-        return <OverDateBtn text={initDate} label={onLabel}/>
+        return <OverDateBtn date={date} label={onLabel}/>
     }
 
     if(nowFormatDateText === fomatDateText){
-        return <NowDateBtn text={initDate} label={onLabel} fomatDateText={fomatDateText}/>
+        return <NowDateBtn date={date} label={onLabel} fomatDateText={fomatDateText}/>
     }
 
     return (
-        <DateBtn text={initDate} label={onLabel} fomatDateText={fomatDateText}/>
+        <DateBtn date={date} label={onLabel} fomatDateText={fomatDateText}/>
     );
 };
 

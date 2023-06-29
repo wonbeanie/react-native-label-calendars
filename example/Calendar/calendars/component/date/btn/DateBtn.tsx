@@ -8,12 +8,12 @@ import { OptionContext } from '../../../../context/OptionContext';
 import { setDateBorder } from '../../../utils/utils';
 
 interface DateBtnProps {
-	text : string;
+	date : Date;
 	label : string;
 	fomatDateText : string;
 }
 
-const DateBtn = ({text, label, fomatDateText}: DateBtnProps) => {
+const DateBtn = ({date, label, fomatDateText}: DateBtnProps) => {
 	const {
 		pressDate, selectDate, labels
 	} = useContext(CalendarsDateContext);
@@ -28,17 +28,18 @@ const DateBtn = ({text, label, fomatDateText}: DateBtnProps) => {
 	} = useContext(OptionContext);
 
 	const defaultBorder = setDateBorder();
-	const color = selectDate === text.toString() ? selectDateColor : "#000";
+	const dateText = date.getDate().toString();
+	const color = selectDate === dateText.toString() ? selectDateColor : "#000";
 
 	const onPress = () => {
-		pressDate(text, fomatDateText, label);
+		pressDate(dateText, fomatDateText, label);
 	}
 
 	return (
 		<Button btnStyle={onPressStyle} onPress={onPress}>
 			<View style={[g.row,g.center, s.date, dateBorderViewStyle, defaultBorder]}>
 				<View style={[dateBackgroundViewStyle, s.dateTextView]}>
-					<Text style={[g.dateFontSize, {color, ...dateTextStyle}]}>{text}</Text>
+					<Text style={[g.dateFontSize, {color, ...dateTextStyle}]}>{dateText}</Text>
 				</View>
 				{
 						enableLabels && <LabelList onLabel={label} labelList={labels}  />

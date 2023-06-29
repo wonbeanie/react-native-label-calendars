@@ -4,14 +4,14 @@ import g from '../style/Global.style';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { labelType, dataDateType, nowDateType, onLabelData } from '../Calendars.d';
 import { CalendarsDate } from './component/date';
-import {  pressDateType, pressOverDateType } from '../type/compoent/date';
+import {  moveDateEnum, pressDateType, pressOverDateType } from '../type/compoent/date';
 import { dateListType } from '../type/compoent/day';
 import { formatDay } from './utils/utils';
 import { CalendarsDateContext, calendarsDateContextType, initCalendarsDateContext } from '../context/CalendarsDateContext';
 import { OptionContext } from '../context/OptionContext';
 import { RowDay } from './component/day';
 
-export default function Calendar({labels, onLabelData, ...props} : propsType){
+export default function Calendar({labels, onLabelData, moveDate, ...props} : propsType){
     const [dateData, setDateData] = useState<dateListType>([]);
     const [year, setYear] = useState<string>('2021');
     const [month, setMonth] = useState<string>('1');
@@ -31,7 +31,7 @@ export default function Calendar({labels, onLabelData, ...props} : propsType){
 
     useEffect(()=>{
         initContext();
-    },[]);
+    },[dataDate]);
 
     const initContext = () => {
         setCalendarsDateOptions({
@@ -39,7 +39,8 @@ export default function Calendar({labels, onLabelData, ...props} : propsType){
             labels : labels,
             pressDate : onPressDate,
             pressOverDate : onPressOverDate,
-            selectDate : selectDate
+            selectDate : selectDate,
+            curDate : props.dataDate,
         });
     }
 
@@ -141,8 +142,8 @@ export default function Calendar({labels, onLabelData, ...props} : propsType){
         onSelectDate(fometDateText, selectDateLabel);
     }
 
-    const onPressOverDate : pressOverDateType = (date) => {
-        // getDates(new Date(date.getFullYear(),date.getMonth()));
+    const onPressOverDate : pressOverDateType = (dateMove) => {
+        moveDate(dateMove)
     }
 
     return (
@@ -158,9 +159,10 @@ export default function Calendar({labels, onLabelData, ...props} : propsType){
 }
 
 
-type propsType = {
-    labels : labelType[],
-    dataDate : dataDateType,
-    nowDate : nowDateType,
-    onLabelData : onLabelData,
+interface propsType {
+    labels : labelType[];
+    dataDate : dataDateType;
+    nowDate : nowDateType;
+    onLabelData : onLabelData;
+    moveDate : (type : moveDateEnum) => void;
 }
